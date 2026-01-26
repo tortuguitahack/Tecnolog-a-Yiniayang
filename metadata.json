@@ -1,0 +1,7 @@
+{
+  "description": "Terminal de Activos de Alto Mando YinIAYanTech. Integración con Gemini 3 Pro/Flash, Veo 3.1 y Gemini 2.5 Flash Image.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "name": "YinIAYanTech Terminal"
+}

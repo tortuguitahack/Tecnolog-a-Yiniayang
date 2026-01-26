@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YinIAYanTech. - DIHACKTOR SUPREMO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;700;900&display=swap');
+        
+        :root {
+            --neon-purple: #a855f7;
+            --neon-emerald: #10b981;
+            --dark-bg: #010103;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        .universe-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--nebula-bg, #010105);
+            background-size: cover;
+            background-position: center;
+            z-index: -3;
+            transition: background 2s ease-in-out;
+        }
+
+        .milky-way-texture {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.5;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .stars {
+            position: fixed;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--d) infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.4); }
+        }
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .product-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 40px;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            outline: none;
+        }
+
+        .product-card:hover, .product-card:focus-visible {
+            border-color: var(--neon-purple);
+            transform: translateY(-15px);
+            box-shadow: 0 50px 100px -20px rgba(168, 85, 247, 0.4);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .product-card:focus-visible {
+            box-shadow: 0 0 0 3px var(--neon-purple), 0 50px 100px -20px rgba(168, 85, 247, 0.4);
+        }
+
+        .modal-overlay {
+            backdrop-filter: blur(80px);
+            background: rgba(0, 0, 0, 0.97);
+            z-index: 200;
+        }
+
+        .specialty-filter-btn {
+            cursor: pointer;
+            padding: 12px 24px;
+            border-radius: 99px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #888;
+            font-size: 10px;
+            font-weight: 900;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+
+        .specialty-filter-btn.active {
+            background: var(--neon-purple);
+            border-color: var(--neon-purple);
+            color: white;
+            box-shadow: 0 10px 30px -5px rgba(168, 85, 247, 0.6);
+            transform: scale(1.05);
+        }
+
+        .specialty-filter-btn:focus-visible {
+            outline: 2px solid var(--neon-purple);
+            outline-offset: 4px;
+        }
+
+        .lab-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 40px;
+            padding: 40px;
+        }
+
+        .comprar-btn-unified {
+            background: linear-gradient(135deg, #7c3aed, #a855f7, #10b981);
+            background-size: 200% auto;
+            transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .payment-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 12px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: var(--neon-emerald);
+            border-radius: 99px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: var(--neon-purple); border-radius: 20px; }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--neon-purple);
+            color: white;
+            padding: 10px 20px;
+            z-index: 1000;
+            font-weight: bold;
+            border-radius: 0 0 10px 10px;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        input:focus-visible, textarea:focus-visible {
+            outline: 2px solid var(--neon-purple);
+            outline-offset: 2px;
+        }
+
+        .header-social-icon {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .header-social-icon:hover {
+            transform: scale(1.3);
+            filter: brightness(1.3);
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0"
+  }
+}
+</script>
+</head>
+<body class="antialiased">
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+    
+    <div class="universe-bg" aria-hidden="true"></div>
+    <div class="milky-way-texture" aria-hidden="true"></div>
+    <div id="stars-container" class="fixed inset-0 z-[-2] pointer-events-none" aria-hidden="true"></div>
+
+    <header class="border-b border-white/5 bg-black/80 backdrop-blur-3xl sticky top-0 z-[100] px-8 py-3" role="banner">
+        <nav class="max-w-[1800px] mx-auto flex flex-wrap justify-between items-center gap-4" aria-label="Navegación principal">
+            <div class="flex items-center gap-5">
+                <div class="p-2.5 bg-purple-900/40 border border-purple-500/50 rounded-[20px]">
+                    <i class="fas fa-terminal text-purple-400 text-xl" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <span class="text-2xl font-black tracking-tighter uppercase italic">YinIAYan<span class="text-purple-400">Tech.</span></span>
+                    <p class="text-[8px] mono text-zinc-500 uppercase tracking-[0.4em] font-black">DIHACKTOR SUPREMO</p>
+                </div>
+            </div>
+            <div id="navSocialLinks" class="hidden xl:flex items-center gap-5 px-6 py-2 bg-white/5 rounded-full border border-white/10" aria-label="Redes sociales oficiales"></div>
+            <div class="flex items-center gap-3">
+                <button id="aiLabsBtn" class="bg-purple-600/10 text-purple-300 border border-purple-500/30 text-[10px] font-black px-6 py-3 rounded-full uppercase hover:bg-purple-600 transition-all focus-visible:ring-2 focus-visible:ring-purple-400" aria-haspopup="dialog" aria-expanded="false" aria-controls="aiLabsOverlay">AI LABS</button>
+                <button id="aiToggleBtn" class="bg-emerald-600/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-black px-6 py-3 rounded-full uppercase hover:bg-emerald-600 transition-all flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-emerald-400" aria-haspopup="dialog" aria-expanded="false" aria-controls="aiOverlay"><i class="fas fa-mask" aria-hidden="true"></i> DIHACKTOR</button>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" role="main" tabindex="-1">
+        <section class="py-24 px-8 text-center relative" role="search" aria-labelledby="search-heading">
+            <div class="max-w-6xl mx-auto space-y-10 relative z-10">
+                <h1 id="search-heading" class="text-5xl md:text-[7rem] font-black uppercase tracking-tighter leading-[0.85] mb-4 drop-shadow-[0_0_30px_rgba(168,85,247,0.4)]">NEXO <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-emerald-400 to-blue-500">Mente Maestra</span></h1>
+                <div class="relative group max-w-3xl mx-auto">
+                    <label for="masterFilter" class="sr-only">Buscar nodos galácticos por título, experto o especialidad</label>
+                    <i class="fas fa-search absolute left-10 top-1/2 -translate-y-1/2 text-zinc-500 text-xl" aria-hidden="true"></i>
+                    <input type="text" id="masterFilter" placeholder="Explorar inteligencia galáctica..." class="w-full bg-white/5 border border-white/10 rounded-full py-8 pl-20 pr-52 focus:border-purple-500/50 outline-none text-xl mono transition-all shadow-2xl backdrop-blur-3xl focus-visible:ring-2 focus-visible:ring-purple-500/50">
+                    <div id="stats" class="absolute right-8 top-1/2 -translate-y-1/2 text-[10px] mono text-zinc-300 font-black px-4 py-2 bg-purple-600/30 rounded-full border border-purple-500/40 backdrop-blur-xl" aria-live="polite">SINCRO...</div>
+                </div>
+                <div id="searchResultsGrounding" class="max-w-3xl mx-auto text-left space-y-4"></div>
+            </div>
+        </section>
+
+        <div class="max-w-[2000px] mx-auto p-8 md:p-16 pt-0">
+            <nav class="mb-10 flex flex-col items-center gap-4" aria-label="Filtrado por especialidad">
+                <span id="filter-label" class="text-[9px] mono text-purple-400 uppercase font-black tracking-[0.5em]">Filtrar por Especialidad del Experto</span>
+                <div id="specialtyFilters" class="flex flex-nowrap justify-start lg:justify-center gap-4 overflow-x-auto w-full max-w-full pb-6 px-4" role="group" aria-labelledby="filter-label"></div>
+            </nav>
+            
+            <section aria-labelledby="catalog-heading">
+                <h2 id="catalog-heading" class="sr-only">Nodos de Expertos Disponibles</h2>
+                <div id="catalogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-10"></div>
+                <div id="sentinel" class="py-32 flex flex-col items-center gap-6" aria-hidden="true">
+                    <div class="text-zinc-600 mono text-xs uppercase tracking-[0.8em] animate-pulse">SINCRIZANDO NODOS GALÁCTICOS...</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal de Pagos Lateral -->
+    <div id="paymentOverlay" class="modal-overlay fixed inset-0 hidden items-center justify-center p-8" role="dialog" aria-modal="true" aria-labelledby="payment-title">
+        <div class="bg-zinc-950 border border-white/10 w-full max-w-[1500px] rounded-[60px] overflow-hidden flex flex-col lg:flex-row h-[90vh] shadow-2xl relative">
+            <button onclick="window.toggleOverlay('paymentOverlay', false)" class="absolute top-8 right-8 z-50 w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white border border-white/10 focus-visible:ring-2 focus-visible:ring-purple-400" aria-label="Cerrar detalles de pago">
+                <i class="fas fa-times text-xl" aria-hidden="true"></i>
+            </button>
+            <div id="productDetailPane" class="lg:w-3/5 bg-zinc-900/40 p-12 overflow-y-auto space-y-10 border-r border-white/10 backdrop-blur-xl scroll-smooth">
+                <div class="flex items-center gap-6">
+                    <div id="expertAvatar" class="w-20 h-20 rounded-full border-4 border-purple-500/30 overflow-hidden">
+                        <img src="" class="w-full h-full object-cover" alt="Retrato del experto">
+                    </div>
+                    <div>
+                        <h2 id="payment-title" class="text-3xl font-black uppercase tracking-tighter"><span id="paymentProdTitle"></span></h2>
+                        <span id="paymentProdExpert" class="text-lg mono text-emerald-400 font-black italic" aria-label="Nombre del experto"></span>
+                    </div>
+                </div>
+                <div class="aspect-video rounded-[40px] overflow-hidden bg-zinc-800">
+                    <img id="paymentProdImg" src="" class="w-full h-full object-cover" alt="Representación visual del activo digital">
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-black uppercase text-purple-400 flex items-center gap-3"><i class="fas fa-file-invoice" aria-hidden="true"></i> Análisis Profundo</h3>
+                        <div id="paymentFullDesc" class="text-sm text-zinc-400 italic border-l-4 border-purple-500 pl-6 py-4 bg-white/5 rounded-r-2xl">Sintonizando...</div>
+                    </div>
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-black uppercase text-emerald-400 flex items-center gap-3"><i class="fas fa-bolt" aria-hidden="true"></i> Resultados Clave</h3>
+                        <ul id="paymentBenefits" class="space-y-3 text-zinc-300 mono text-[11px]"></ul>
+                    </div>
+                </div>
+            </div>
+            <div id="paymentActionPane" class="lg:w-2/5 flex flex-col h-full bg-black/60 p-12 overflow-y-auto backdrop-blur-3xl">
+                <div class="mb-10 text-center">
+                    <p class="text-[9px] mono text-purple-400 uppercase font-black tracking-[0.4em] mb-2">Canalización de Fondos</p>
+                    <h3 class="text-4xl font-black uppercase italic">Caja <span class="text-emerald-400">SUPREMA</span></h3>
+                </div>
+                <div class="space-y-8 flex-1">
+                    <section class="space-y-4" aria-labelledby="stripe-heading">
+                        <div class="flex justify-between items-center">
+                            <h4 id="stripe-heading" class="text-[10px] font-black text-zinc-500 uppercase">Stripe Fast-Node</h4>
+                            <span class="payment-pill"><i class="fab fa-stripe" aria-hidden="true"></i> Live Ready</span>
+                        </div>
+                        <div id="stripeButtonContainer"></div>
+                    </section>
+                    <section class="space-y-4 pt-6 border-t border-white/5" aria-labelledby="crypto-heading">
+                        <div class="flex justify-between items-center">
+                            <h4 id="crypto-heading" class="text-[10px] font-black text-zinc-500 uppercase">Crypto Protocol</h4>
+                            <span class="payment-pill"><i class="fab fa-bitcoin" aria-hidden="true"></i> Web3 Link</span>
+                        </div>
+                        <div class="bg-black/40 p-4 rounded-2xl border border-white/5 flex justify-between items-center">
+                            <p class="mono text-[8px] truncate text-zinc-400" id="crypto-address">0xeBe965EFe1ab53d2da915134d72e5BdBd5E3C053</p>
+                            <button class="copy-btn text-emerald-400 focus-visible:ring-2 focus-visible:ring-emerald-400" data-copy="0xeBe965EFe1ab53d2da915134d72e5BdBd5E3C053" aria-label="Copiar dirección cripto">
+                                <i class="far fa-copy" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </section>
+                </div>
+                <div class="mt-10 pt-6 border-t border-white/10 text-center">
+                    <span id="finalPriceDisplay" class="text-5xl font-black text-emerald-400" aria-label="Precio de inversión">$0.00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Labs Overlay -->
+    <div id="aiLabsOverlay" class="modal-overlay fixed inset-0 hidden items-center justify-center p-8" role="dialog" aria-modal="true" aria-labelledby="labs-modal-title">
+        <div class="bg-zinc-950 border border-purple-500/30 w-full max-w-[1600px] rounded-[70px] overflow-hidden flex flex-col h-[90vh] relative shadow-2xl">
+            <button onclick="window.toggleOverlay('aiLabsOverlay', false)" class="absolute top-10 right-10 z-50 w-16 h-16 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white border border-white/10 focus-visible:ring-2 focus-visible:ring-purple-400" aria-label="Cerrar laboratorios de IA">
+                <i class="fas fa-times text-3xl" aria-hidden="true"></i>
+            </button>
+            <div class="p-14 border-b border-white/5 flex items-center gap-6 bg-black/40">
+                <div class="w-16 h-16 rounded-full bg-purple-600/20 flex items-center justify-center">
+                    <i class="fas fa-flask text-purple-400 text-3xl" aria-hidden="true"></i>
+                </div>
+                <h2 id="labs-modal-title" class="text-5xl font-black uppercase italic tracking-tighter">AI <span class="text-purple-400">LABS</span> SUPREMO</h2>
+            </div>
+            <div class="flex-1 overflow-y-auto p-12 grid lg:grid-cols-3 gap-12">
+                <!-- Visual Synthesis -->
+                <section class="lab-card space-y-6" aria-labelledby="image-gen-title">
+                    <h3 id="image-gen-title" class="text-2xl font-black italic uppercase"><i class="fas fa-wand-magic-sparkles text-purple-400 mr-2" aria-hidden="true"></i> Synthesis</h3>
+                    <p class="text-[9px] mono text-zinc-500 uppercase">Gemini 2.5 Flash Image</p>
+                    <textarea id="genPrompt" placeholder="Sintetizar activo visual galáctico..." class="w-full bg-black/50 border border-white/10 rounded-[30px] p-6 text-sm mono outline-none focus:border-purple-500 h-32"></textarea>
+                    <div id="genResult" class="hidden w-full aspect-square rounded-[40px] overflow-hidden border border-purple-500/40 bg-zinc-900 flex items-center justify-center shadow-2xl"></div>
+                    <button id="btnGenerate" class="w-full bg-purple-600 py-6 rounded-[30px] font-black uppercase text-xs tracking-[0.2em]">SINTETIZAR</button>
+                </section>
+                <!-- Image Editor -->
+                <section class="lab-card space-y-6" aria-labelledby="image-edit-title">
+                    <h3 id="image-edit-title" class="text-2xl font-black italic uppercase"><i class="fas fa-magic text-blue-400 mr-2" aria-hidden="true"></i> Editor</h3>
+                    <p class="text-[9px] mono text-zinc-500 uppercase">Nano Banana Powered</p>
+                    <div class="space-y-4">
+                        <label class="block text-[10px] mono text-zinc-400 uppercase">Imagen Base:</label>
+                        <div id="editBasePreview" class="w-full aspect-video rounded-3xl bg-zinc-900/50 border border-dashed border-white/10 flex items-center justify-center overflow-hidden">
+                            <span class="text-[9px] text-zinc-600 italic">No hay imagen base</span>
+                        </div>
+                        <textarea id="editPrompt" placeholder="Ej: 'Añade un filtro retro' o 'Cambia el fondo a marte'..." class="w-full bg-black/50 border border-white/10 rounded-[30px] p-6 text-sm mono outline-none focus:border-blue-500 h-24"></textarea>
+                        <button id="btnEditImage" class="w-full bg-blue-600 py-6 rounded-[30px] font-black uppercase text-xs tracking-[0.2em]">RE-SINTETIZAR</button>
+                    </div>
+                </section>
+                <!-- Video Synthesis -->
+                <section class="lab-card space-y-6" aria-labelledby="video-gen-title">
+                    <h3 id="video-gen-title" class="text-2xl font-black italic uppercase"><i class="fas fa-film text-emerald-400 mr-2" aria-hidden="true"></i> Temporal</h3>
+                    <p class="text-[9px] mono text-zinc-500 uppercase">Veo 3.1 Fast Preview</p>
+                    <textarea id="videoPrompt" placeholder="Sintetizar flujo temporal galáctico..." class="w-full bg-black/50 border border-white/10 rounded-[30px] p-6 text-sm mono outline-none focus:border-emerald-500 h-32"></textarea>
+                    <div id="videoGenStatus" class="hidden p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-center animate-pulse">
+                        <p class="mono text-[10px] uppercase text-emerald-400 font-black" id="videoStatusText">Conectando Veo...</p>
+                    </div>
+                    <div id="videoResult" class="hidden w-full aspect-video rounded-[40px] overflow-hidden border border-emerald-500/40 bg-zinc-900 flex items-center justify-center relative"></div>
+                    <button id="btnGenerateVideo" class="w-full bg-emerald-600 py-6 rounded-[30px] font-black uppercase text-xs tracking-[0.2em]">SINTETIZAR VIDEO</button>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- DIHACKTOR Chat Overlay -->
+    <div id="aiOverlay" class="modal-overlay fixed inset-0 hidden items-center justify-center p-8" role="dialog" aria-modal="true" aria-labelledby="chat-modal-title">
+        <div class="bg-zinc-950 border border-emerald-500/30 w-full max-w-4xl rounded-[50px] overflow-hidden flex flex-col h-[80vh]">
+            <div class="p-10 border-b border-white/5 flex justify-between items-center bg-black/40">
+                <h2 id="chat-modal-title" class="text-2xl font-black italic uppercase flex items-center gap-3">
+                    <i class="fas fa-mask text-emerald-400" aria-hidden="true"></i> DIHACKTOR <span class="text-emerald-400">NEXUS</span>
+                </h2>
+                <button onclick="window.toggleOverlay('aiOverlay', false)" class="text-zinc-500 hover:text-white focus-visible:ring-2 focus-visible:ring-emerald-400" aria-label="Cerrar chat DIHACKTOR">
+                    <i class="fas fa-times text-xl" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div id="aiChat" class="flex-1 p-10 overflow-y-auto space-y-8 mono text-sm" aria-live="polite"></div>
+            <div id="typingIndicator" class="px-10 py-4 hidden">
+                <div class="typing-indicator" aria-hidden="true">
+                    <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+                </div>
+                <span class="sr-only">DIHACKTOR está procesando su consulta...</span>
+            </div>
+            <div class="p-8 bg-black/80 flex gap-4">
+                <label for="aiInput" class="sr-only">Escriba su consulta para el DIHACKTOR</label>
+                <input type="text" id="aiInput" placeholder="Define tu interés galáctico..." class="flex-1 bg-white/5 border border-white/10 rounded-full p-5 text-white outline-none focus:border-emerald-500">
+                <button id="sendAiBtn" class="bg-emerald-600 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow-xl hover:bg-emerald-500 transition-all focus-visible:ring-2 focus-visible:ring-white" aria-label="Enviar mensaje">
+                    <i class="fas fa-bolt" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Overlay -->
+    <div id="shareOverlay" class="modal-overlay fixed inset-0 hidden items-center justify-center p-8" role="dialog" aria-modal="true" aria-labelledby="share-modal-title">
+        <div class="bg-zinc-950 border border-white/10 w-full max-w-2xl rounded-[60px] p-12 text-center space-y-10 shadow-2xl">
+            <h3 id="share-modal-title" class="text-3xl font-black italic uppercase tracking-tighter">Propagar <span class="text-purple-400">Conexión</span></h3>
+            <p id="shareProdTitle" class="text-zinc-500 mono text-xs uppercase tracking-widest font-bold"></p>
+            <div id="shareSocialLinks" class="grid grid-cols-5 gap-6" aria-label="Seleccione red social para compartir"></div>
+            <button onclick="window.toggleOverlay('shareOverlay', false)" class="text-zinc-500 uppercase font-black text-xs tracking-[0.4em] focus-visible:ring-2 focus-visible:ring-white" aria-label="Cerrar ventana de compartir">Cerrar</button>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="fixed bottom-12 right-12 z-[300] flex flex-col gap-6" aria-live="assertive"></div>
+
+    <script type="module" src="index.tsx"></script>
+    <script>
+        const starsContainer = document.getElementById('stars-container');
+        for(let i=0; i<300; i++){
+            const star = document.createElement('div');
+            star.className = 'stars';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            const size = Math.random() * 2 + 0.5;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.setProperty('--d', (Math.random() * 4 + 2) + 's');
+            starsContainer.appendChild(star);
+        }
+    </script>
+</body>
+</html>
