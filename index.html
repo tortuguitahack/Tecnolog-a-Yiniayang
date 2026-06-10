@@ -1,421 +1,399 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YinIAYanTech. - DIHACKTOR SUPREMO</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;700;900&display=swap');
-        
-        :root {
-            --neon-purple: #a855f7;
-            --neon-emerald: #10b981;
-            --dark-bg: #010103;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--dark-bg);
-            color: #ffffff;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-
-        .universe-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--nebula-bg, #010105);
-            background-size: cover;
-            background-position: center;
-            z-index: -3;
-            transition: background 2s ease-in-out;
-        }
-
-        .milky-way-texture {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
-            opacity: 0.5;
-            z-index: -2;
-            pointer-events: none;
-        }
-
-        .stars {
-            position: fixed;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle var(--d) infinite ease-in-out;
-            pointer-events: none;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.4); }
-        }
-
-        .mono { font-family: 'JetBrains Mono', monospace; }
-        
-        .product-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(40px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 40px;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            outline: none;
-        }
-
-        .product-card:hover, .product-card:focus-visible {
-            border-color: var(--neon-purple);
-            transform: translateY(-15px);
-            box-shadow: 0 50px 100px -20px rgba(168, 85, 247, 0.4);
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        .product-card:focus-visible {
-            box-shadow: 0 0 0 3px var(--neon-purple), 0 50px 100px -20px rgba(168, 85, 247, 0.4);
-        }
-
-        .modal-overlay {
-            backdrop-filter: blur(80px);
-            background: rgba(0, 0, 0, 0.97);
-            z-index: 200;
-        }
-
-        .specialty-filter-btn {
-            cursor: pointer;
-            padding: 12px 24px;
-            border-radius: 99px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #888;
-            font-size: 10px;
-            font-weight: 900;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            white-space: nowrap;
-        }
-
-        .specialty-filter-btn.active {
-            background: var(--neon-purple);
-            border-color: var(--neon-purple);
-            color: white;
-            box-shadow: 0 10px 30px -5px rgba(168, 85, 247, 0.6);
-            transform: scale(1.05);
-        }
-
-        .specialty-filter-btn:focus-visible {
-            outline: 2px solid var(--neon-purple);
-            outline-offset: 4px;
-        }
-
-        .lab-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 40px;
-            padding: 40px;
-        }
-
-        .comprar-btn-unified {
-            background: linear-gradient(135deg, #7c3aed, #a855f7, #10b981);
-            background-size: 200% auto;
-            transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .payment-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 4px 12px;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            color: var(--neon-emerald);
-            border-radius: 99px;
-            font-size: 10px;
-            font-weight: 800;
-        }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: var(--neon-purple); border-radius: 20px; }
-
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
-        }
-
-        .skip-link {
-            position: absolute;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--neon-purple);
-            color: white;
-            padding: 10px 20px;
-            z-index: 1000;
-            font-weight: bold;
-            border-radius: 0 0 10px 10px;
-            transition: top 0.3s;
-        }
-
-        .skip-link:focus {
-            top: 0;
-        }
-
-        input:focus-visible, textarea:focus-visible {
-            outline: 2px solid var(--neon-purple);
-            outline-offset: 2px;
-        }
-
-        .header-social-icon {
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .header-social-icon:hover {
-            transform: scale(1.3);
-            filter: brightness(1.3);
-        }
-    </style>
-<script type="importmap">
-{
-  "imports": {
-    "@google/genai": "https://esm.sh/@google/genai@^1.38.0"
-  }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DIHACKTOR Ω | 1,020,895 Productos IA — $6.99 USD</title>
+<meta name="description" content="La colección más grande de tutoriales de IA del mundo. 1,020,895 productos digitales desde $6.99 USD. Pago con Vitawallet, Crypto, Transferencia Bancaria.">
+<meta property="og:title" content="DIHACKTOR Ω | 1,020,895 Productos IA — $6.99">
+<meta property="og:description" content="Video HD + PDF + Audio + Workflows n8n. Pago seguro con Vitawallet.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=630&fit=crop">
+<meta property="og:url" content="https://tortuguitahack.github.io/Tecnolog-a-Yiniayang/">
+<meta name="twitter:card" content="summary_large_image">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{
+--bg:#020617;--surface:#0f172a;--border:rgba(255,255,255,0.08);
+--cyan:#00f2ff;--purple:#bc13fe;--pink:#ff00bd;
+--green:#10b981;--gold:#f59e0b;--red:#ef4444;
+--text:#f1f5f9;--muted:#94a3b8;--dim:#64748b;
 }
-</script>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);
+line-height:1.6;overflow-x:hidden;
+}
+/* ═══ BACKGROUND ═══ */
+.bg{
+position:fixed;inset:0;z-index:0;pointer-events:none;
+background:
+radial-gradient(ellipse 80% 50% at 50% -20%,rgba(139,19,254,0.15),transparent),
+radial-gradient(ellipse 60% 40% at 80% 50%,rgba(0,242,255,0.08),transparent),
+radial-gradient(ellipse 60% 40% at 20% 80%,rgba(255,0,189,0.05),transparent);
+}
+.bg-grid{
+position:fixed;inset:0;z-index:0;pointer-events:none;
+background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);
+background-size:80px 80px;
+}
+/* ═══ NAVBAR ═══ */
+.nav{
+position:sticky;top:0;z-index:100;
+background:rgba(2,6,23,0.85);backdrop-filter:blur(20px);
+border-bottom:1px solid var(--border);
+padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;
+}
+.nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.nav-logo-icon{
+width:42px;height:42px;border-radius:12px;
+background:linear-gradient(135deg,var(--cyan),var(--purple));
+display:flex;align-items:center;justify-content:center;
+font-size:1.3rem;font-weight:900;color:#000;
+}
+.nav-logo-text{
+font-size:1.3rem;font-weight:800;
+background:linear-gradient(135deg,var(--cyan),var(--purple));
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;font-weight:600;transition:color .2s}
+.nav-links a:hover{color:var(--cyan)}
+.nav-cta{
+padding:.6rem 1.5rem;border-radius:10px;font-weight:700;font-size:.85rem;
+text-decoration:none;transition:all .2s;
+background:linear-gradient(135deg,var(--cyan),var(--purple));color:#000;
+}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,242,255,.3)}
+@media(max-width:768px){.nav-links{display:none}.nav{padding:1rem}}
+/* ═══ HERO ═══ */
+.hero{
+position:relative;z-index:1;padding:6rem 2rem 4rem;
+text-align:center;max-width:1000px;margin:0 auto;
+}
+.hero-badge{
+display:inline-flex;align-items:center;gap:.5rem;
+padding:.5rem 1.25rem;border-radius:100px;
+background:rgba(0,242,255,.08);border:1px solid rgba(0,242,255,.15);
+font-size:.75rem;font-weight:700;color:var(--cyan);
+margin-bottom:2rem;text-transform:uppercase;letter-spacing:.1em;
+}
+.hero-badge-dot{width:6px;height:6px;background:var(--cyan);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{
+font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;
+line-height:1.1;margin-bottom:1.5rem;
+font-family:'Space Grotesk',sans-serif;
+}
+.hero h1 .g{
+background:linear-gradient(135deg,var(--cyan),var(--purple),var(--pink));
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-sub{
+font-size:clamp(1rem,2vw,1.2rem);color:var(--muted);
+max-width:600px;margin:0 auto 2.5rem;line-height:1.7;
+}
+.hero-stats{display:flex;justify-content:center;gap:3rem;margin:3rem 0;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat-v{
+font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;
+background:linear-gradient(135deg,var(--cyan),var(--purple));
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-stat-l{font-size:.7rem;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-top:.25rem}
+.hero-cta{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
+/* ═══ BUTTONS ═══ */
+.btn{
+display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+padding:1rem 2rem;border-radius:12px;font-weight:700;font-size:.95rem;
+text-decoration:none;transition:all .3s;border:none;cursor:pointer;
+}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#000}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,242,255,.35)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--cyan);background:rgba(0,242,255,.05)}
+.btn-sm{padding:.6rem 1.25rem;font-size:.8rem;border-radius:8px}
+/* ═══ SECTIONS ═══ */
+.section{position:relative;z-index:1;padding:4rem 2rem;max-width:1400px;margin:0 auto}
+.section-hd{text-align:center;margin-bottom:3rem}
+.section-hd h2{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;margin-bottom:.5rem}
+.section-hd p{color:var(--muted);max-width:600px;margin:0 auto}
+/* ═══ STATS BAR ═══ */
+.stats{
+background:linear-gradient(90deg,rgba(0,242,255,.04),rgba(139,19,254,.04));
+border:1px solid var(--border);border-radius:16px;
+padding:1.25rem 2rem;margin:2rem auto;max-width:900px;
+display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;
+}
+.stats span{font-size:.85rem;color:var(--muted)}
+.stats strong{color:var(--cyan)}
+/* ═══ FEATURES ═══ */
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.feat-card{
+padding:2rem;background:var(--surface);border:1px solid var(--border);
+border-radius:20px;text-align:center;transition:all .3s;
+}
+.feat-card:hover{border-color:var(--cyan);transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,242,255,.08)}
+.feat-icon{
+width:56px;height:56px;margin:0 auto 1rem;border-radius:14px;
+background:linear-gradient(135deg,rgba(0,242,255,.1),rgba(139,19,254,.1));
+display:flex;align-items:center;justify-content:center;font-size:1.4rem;
+}
+.feat-card h3{font-size:1.05rem;font-weight:700;margin-bottom:.5rem}
+.feat-card p{font-size:.85rem;color:var(--dim);line-height:1.6}
+/* ═══ PRODUCTS ═══ */
+.search-wrap{max-width:600px;margin:0 auto 1.5rem;position:relative}
+.search-inp{
+width:100%;padding:1rem 1.5rem 1rem 3.25rem;
+background:var(--surface);border:1px solid var(--border);border-radius:14px;
+color:var(--text);font-size:1rem;outline:none;transition:border-color .2s;
+}
+.search-inp:focus{border-color:var(--cyan)}
+.search-ico{position:absolute;left:1.25rem;top:50%;transform:translateY(-50%);color:var(--dim)}
+.filters{display:flex;justify-content:center;gap:.5rem;margin-bottom:2rem;flex-wrap:wrap}
+.filter{
+padding:.5rem 1.25rem;background:var(--surface);border:1px solid var(--border);
+border-radius:10px;color:var(--muted);font-size:.8rem;font-weight:600;
+cursor:pointer;transition:all .2s;
+}
+.filter:hover,.filter.active{border-color:var(--cyan);color:var(--cyan);background:rgba(0,242,255,.05)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}
+.card{
+background:var(--surface);border:1px solid var(--border);border-radius:20px;
+overflow:hidden;transition:all .4s;position:relative;
+}
+.card:hover{transform:translateY(-6px);border-color:var(--cyan);box-shadow:0 12px 40px rgba(0,242,255,.1)}
+.card-img-wrap{overflow:hidden;position:relative;height:180px}
+.card-img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.card:hover .card-img{transform:scale(1.05)}
+.card-level{
+position:absolute;top:10px;left:10px;padding:.3rem .75rem;border-radius:6px;
+font-size:.65rem;font-weight:700;text-transform:uppercase;
+}
+.l-starter{background:rgba(16,185,129,.2);color:var(--green)}
+.l-ready{background:rgba(0,242,255,.2);color:var(--cyan)}
+.l-super{background:rgba(245,158,11,.2);color:var(--gold)}
+.card-price{
+position:absolute;top:10px;right:10px;
+background:linear-gradient(135deg,var(--cyan),var(--purple));
+color:#000;padding:.35rem .85rem;border-radius:8px;font-weight:900;font-size:.85rem;
+}
+.card-body{padding:1.25rem}
+.card-cat{font-size:.65rem;color:var(--cyan);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:.4rem}
+.card-title{font-size:.95rem;font-weight:700;margin-bottom:.4rem;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-desc{font-size:.8rem;color:var(--dim);line-height:1.5;margin-bottom:.75rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card-exp{font-size:.75rem;color:var(--muted);margin-bottom:1rem}
+.card-exp span{color:var(--purple);font-weight:600}
+.card-btn{
+display:block;width:100%;padding:.7rem;background:linear-gradient(135deg,var(--cyan),var(--purple));
+color:#000;border:none;border-radius:10px;font-weight:700;font-size:.85rem;
+text-align:center;text-decoration:none;cursor:pointer;transition:all .3s;
+}
+.card-btn:hover{transform:scale(1.02);box-shadow:0 4px 15px rgba(0,242,255,.3)}
+/* ═══ PAYMENT MODAL ═══ */
+.modal-overlay{
+display:none;position:fixed;inset:0;z-index:9999;
+background:rgba(0,0,0,.92);backdrop-filter:blur(12px);
+align-items:center;justify-content:center;padding:1rem;
+}
+.modal-overlay.active{display:flex}
+.modal{
+background:var(--surface);border:2px solid var(--purple);
+border-radius:24px;padding:2rem;max-width:540px;width:100%;
+max-height:90vh;overflow-y:auto;position:relative;
+}
+.modal-close{
+position:absolute;top:1rem;right:1rem;background:none;border:none;
+color:var(--dim);font-size:1.5rem;cursor:pointer;transition:color .2s;
+}
+.modal-close:hover{color:var(--text)}
+.modal h2{color:var(--cyan);margin-bottom:.5rem;font-size:1.3rem}
+.modal .prod-name{color:var(--muted);font-size:.9rem;margin-bottom:1rem}
+.modal .prod-price{font-size:2.5rem;font-weight:900;color:var(--green);margin-bottom:1.5rem}
+.pay-method{
+border-radius:14px;padding:1.25rem;margin-bottom:1rem;text-align:left;
+}
+.pay-method h4{margin-bottom:.5rem;font-size:.95rem}
+.pay-method p{font-size:.8rem;color:var(--muted);margin-bottom:.25rem;word-break:break-all}
+.pay-vitawallet{background:rgba(139,19,254,.08);border:2px solid var(--purple)}
+.pay-vitawallet h4{color:var(--purple)}
+.pay-crypto{background:rgba(0,242,255,.04);border:1px solid rgba(0,242,255,.2)}
+.pay-crypto h4{color:var(--cyan)}
+.pay-bank{background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.2)}
+.pay-bank h4{color:var(--green)}
+/* ═══ CTA ═══ */
+.cta-box{
+max-width:800px;margin:0 auto;padding:4rem 2rem;
+background:linear-gradient(135deg,rgba(0,242,255,.04),rgba(139,19,254,.04));
+border:1px solid var(--border);border-radius:30px;text-align:center;
+}
+.cta-box h2{font-size:clamp(1.5rem,3vw,2.5rem);font-weight:900;margin-bottom:1rem}
+.cta-box p{color:var(--muted);margin-bottom:2rem;font-size:1.05rem}
+/* ═══ FOOTER ═══ */
+.footer{
+position:relative;z-index:1;padding:3rem 2rem;border-top:1px solid var(--border);text-align:center;
+}
+.footer-social{display:flex;justify-content:center;gap:1rem;margin-bottom:1.5rem}
+.footer-social a{
+width:40px;height:40px;border-radius:50%;background:var(--surface);
+border:1px solid var(--border);display:flex;align-items:center;
+justify-content:center;color:var(--muted);text-decoration:none;transition:all .2s;
+}
+.footer-social a:hover{border-color:var(--cyan);color:var(--cyan)}
+.footer-links{display:flex;justify-content:center;gap:2rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.footer-links a{color:var(--dim);text-decoration:none;font-size:.85rem;transition:color .2s}
+.footer-links a:hover{color:var(--cyan)}
+.footer-copy{font-size:.75rem;color:var(--dim)}
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:768px){
+.hero{padding:5rem 1rem 3rem}
+.hero-stats{gap:1.5rem}
+.hero-stat-v{font-size:1.3rem}
+.grid{grid-template-columns:1fr}
+.cta-box{padding:2rem 1.5rem}
+}
+</style>
 </head>
-<body class="antialiased">
-    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
-    
-    <div class="universe-bg" aria-hidden="true"></div>
-    <div class="milky-way-texture" aria-hidden="true"></div>
-    <div id="stars-container" class="fixed inset-0 z-[-2] pointer-events-none" aria-hidden="true"></div>
+<body>
+<div class="bg"></div>
+<div class="bg-grid"></div>
 
-    <header class="border-b border-white/5 bg-black/80 backdrop-blur-3xl sticky top-0 z-[100] px-8 py-3" role="banner">
-        <nav class="max-w-[1800px] mx-auto flex flex-wrap justify-between items-center gap-4" aria-label="Navegación principal">
-            <div class="flex items-center gap-5">
-                <div class="p-2.5 bg-purple-900/40 border border-purple-500/50 rounded-[20px]">
-                    <i class="fas fa-terminal text-purple-400 text-xl" aria-hidden="true"></i>
-                </div>
-                <div>
-                    <span class="text-2xl font-black tracking-tighter uppercase italic">YinIAYan<span class="text-purple-400">Tech.</span></span>
-                    <p class="text-[8px] mono text-zinc-500 uppercase tracking-[0.4em] font-black">DIHACKTOR SUPREMO</p>
-                </div>
-            </div>
-            <div id="navSocialLinks" class="hidden xl:flex items-center gap-5 px-6 py-2 bg-white/5 rounded-full border border-white/10" aria-label="Redes sociales oficiales"></div>
-            <div class="flex items-center gap-3">
-                <button id="aiLabsBtn" class="bg-purple-600/10 text-purple-300 border border-purple-500/30 text-[10px] font-black px-6 py-3 rounded-full uppercase hover:bg-purple-600 transition-all focus-visible:ring-2 focus-visible:ring-purple-400" aria-haspopup="dialog" aria-expanded="false" aria-controls="aiLabsOverlay">AI LABS</button>
-                <button id="aiToggleBtn" class="bg-emerald-600/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-black px-6 py-3 rounded-full uppercase hover:bg-emerald-600 transition-all flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-emerald-400" aria-haspopup="dialog" aria-expanded="false" aria-controls="aiOverlay"><i class="fas fa-mask" aria-hidden="true"></i> DIHACKTOR</button>
-            </div>
-        </nav>
-    </header>
+<!-- NAV -->
+<nav class="nav">
+<a href="#" class="nav-logo"><div class="nav-logo-icon">Ω</div><span class="nav-logo-text">DIHACKTOR Ω</span></a>
+<div class="nav-links"><a href="#productos">Productos</a><a href="#categorias">Categorías</a><a href="#expertos">Expertos</a><a href="#comprar">Comprar</a></div>
+<a href="#comprar" class="nav-cta">Comprar $6.99</a>
+</nav>
 
-    <main id="main-content" role="main" tabindex="-1">
-        <section class="py-24 px-8 text-center relative" role="search" aria-labelledby="search-heading">
-            <div class="max-w-6xl mx-auto space-y-10 relative z-10">
-                <h1 id="search-heading" class="text-5xl md:text-[7rem] font-black uppercase tracking-tighter leading-[0.85] mb-4 drop-shadow-[0_0_30px_rgba(168,85,247,0.4)]">NEXO <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-emerald-400 to-blue-500">Mente Maestra</span></h1>
-                <div class="relative group max-w-3xl mx-auto">
-                    <label for="masterFilter" class="sr-only">Buscar nodos galácticos por título, experto o especialidad</label>
-                    <i class="fas fa-search absolute left-10 top-1/2 -translate-y-1/2 text-zinc-500 text-xl" aria-hidden="true"></i>
-                    <input type="text" id="masterFilter" placeholder="Explorar inteligencia galáctica..." class="w-full bg-white/5 border border-white/10 rounded-full py-8 pl-20 pr-52 focus:border-purple-500/50 outline-none text-xl mono transition-all shadow-2xl backdrop-blur-3xl focus-visible:ring-2 focus-visible:ring-purple-500/50">
-                    <div id="stats" class="absolute right-8 top-1/2 -translate-y-1/2 text-[10px] mono text-zinc-300 font-black px-4 py-2 bg-purple-600/30 rounded-full border border-purple-500/40 backdrop-blur-xl" aria-live="polite">SINCRO...</div>
-                </div>
-                <div id="searchResultsGrounding" class="max-w-3xl mx-auto text-left space-y-4"></div>
-            </div>
-        </section>
+<!-- HERO -->
+<section class="hero">
+<div class="hero-badge"><div class="hero-badge-dot"></div>1,020,895 Productos IA — Junio 2026</div>
+<h1>La IA no es una herramienta,<br><span class="g">es una habilidad.</span></h1>
+<p class="hero-sub">La colección más grande de tutoriales de IA del mundo. Video HD + PDF + Audio + Workflows n8n. Pago seguro con Vitawallet, Crypto o Transferencia Bancaria.</p>
+<div class="hero-stats">
+<div class="hero-stat"><div class="hero-stat-v">1M+</div><div class="hero-stat-l">Productos</div></div>
+<div class="hero-stat"><div class="hero-stat-v">80+</div><div class="hero-stat-l">Expertos</div></div>
+<div class="hero-stat"><div class="hero-stat-v">20</div><div class="hero-stat-l">Categorías</div></div>
+<div class="hero-stat"><div class="hero-stat-v">$6.99</div><div class="hero-stat-l">Precio Fijo</div></div>
+</div>
+<div class="hero-cta">
+<a href="#comprar" class="btn btn-primary"><i class="fas fa-bolt"></i> Comprar Ahora — $6.99 USD</a>
+<a href="#productos" class="btn btn-ghost"><i class="fas fa-compass"></i> Explorar Catálogo</a>
+</div>
+</section>
 
-        <div class="max-w-[2000px] mx-auto p-8 md:p-16 pt-0">
-            <nav class="mb-10 flex flex-col items-center gap-4" aria-label="Filtrado por especialidad">
-                <span id="filter-label" class="text-[9px] mono text-purple-400 uppercase font-black tracking-[0.5em]">Filtrar por Especialidad del Experto</span>
-                <div id="specialtyFilters" class="flex flex-nowrap justify-start lg:justify-center gap-4 overflow-x-auto w-full max-w-full pb-6 px-4" role="group" aria-labelledby="filter-label"></div>
-            </nav>
-            
-            <section aria-labelledby="catalog-heading">
-                <h2 id="catalog-heading" class="sr-only">Nodos de Expertos Disponibles</h2>
-                <div id="catalogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-10"></div>
-                <div id="sentinel" class="py-32 flex flex-col items-center gap-6" aria-hidden="true">
-                    <div class="text-zinc-600 mono text-xs uppercase tracking-[0.8em] animate-pulse">SINCRIZANDO NODOS GALÁCTICOS...</div>
-                </div>
-            </section>
-        </div>
-    </main>
+<!-- STATS -->
+<div class="stats">
+<span><i class="fas fa-database"></i> <strong>1,020,895</strong> productos</span>
+<span><i class="fas fa-globe"></i> Envío digital global</span>
+<span><i class="fas fa-shield-alt"></i> Pago seguro</span>
+<span><i class="fas fa-bolt"></i> Acceso inmediato</span>
+</div>
 
-    <!-- Modal de Pagos Lateral -->
-    <div id="paymentOverlay" class="modal-overlay fixed inset-0 hidden items-center justify-center p-8" role="dialog" aria-modal="true" aria-labelledby="payment-title">
-        <div class="bg-zinc-950 border border-white/10 w-full max-w-[1500px] rounded-[60px] overflow-hidden flex flex-col lg:flex-row h-[90vh] shadow-2xl relative">
-            <button onclick="window.toggleOverlay('paymentOverlay', false)" class="absolute top-8 right-8 z-50 w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white border border-white/10 focus-visible:ring-2 focus-visible:ring-purple-400" aria-label="Cerrar detalles de pago">
-                <i class="fas fa-times text-xl" aria-hidden="true"></i>
-            </button>
-            <div id="productDetailPane" class="lg:w-3/5 bg-zinc-900/40 p-12 overflow-y-auto space-y-10 border-r border-white/10 backdrop-blur-xl scroll-smooth">
-                <div class="flex items-center gap-6">
-                    <div id="expertAvatar" class="w-20 h-20 rounded-full border-4 border-purple-500/30 overflow-hidden">
-                        <img src="" class="w-full h-full object-cover" alt="Retrato del experto">
-                    </div>
-                    <div>
-                        <h2 id="payment-title" class="text-3xl font-black uppercase tracking-tighter"><span id="paymentProdTitle"></span></h2>
-                        <span id="paymentProdExpert" class="text-lg mono text-emerald-400 font-black italic" aria-label="Nombre del experto"></span>
-                    </div>
-                </div>
-                <div class="aspect-video rounded-[40px] overflow-hidden bg-zinc-800">
-                    <img id="paymentProdImg" src="" class="w-full h-full object-cover" alt="Representación visual del activo digital">
-                </div>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="space-y-4">
-                        <h3 class="text-lg font-black uppercase text-purple-400 flex items-center gap-3"><i class="fas fa-file-invoice" aria-hidden="true"></i> Análisis Profundo</h3>
-                        <div id="paymentFullDesc" class="text-sm text-zinc-400 italic border-l-4 border-purple-500 pl-6 py-4 bg-white/5 rounded-r-2xl">Sintonizando...</div>
-                    </div>
-                    <div class="space-y-4">
-                        <h3 class="text-lg font-black uppercase text-emerald-400 flex items-center gap-3"><i class="fas fa-bolt" aria-hidden="true"></i> Resultados Clave</h3>
-                        <ul id="paymentBenefits" class="space-y-3 text-zinc-300 mono text-[11px]"></ul>
-                    </div>
-                </div>
-            </div>
-            <div id="paymentActionPane" class="lg:w-2/5 flex flex-col h-full bg-black/60 p-12 overflow-y-auto backdrop-blur-3xl">
-                <div class="mb-10 text-center">
-                    <p class="text-[9px] mono text-purple-400 uppercase font-black tracking-[0.4em] mb-2">Canalización de Fondos</p>
-                    <h3 class="text-4xl font-black uppercase italic">Caja <span class="text-emerald-400">SUPREMA</span></h3>
-                </div>
-                <div class="space-y-8 flex-1">
-                    <section class="space-y-4" aria-labelledby="stripe-heading">
-                        <div class="flex justify-between items-center">
-                            <h4 id="stripe-heading" class="text-[10px] font-black text-zinc-500 uppercase">Stripe Fast-Node</h4>
-                            <span class="payment-pill"><i class="fab fa-stripe" aria-hidden="true"></i> Live Ready</span>
-                        </div>
-                        <div id="stripeButtonContainer"></div>
-                    </section>
-                    <section class="space-y-4 pt-6 border-t border-white/5" aria-labelledby="crypto-heading">
-                        <div class="flex justify-between items-center">
-                            <h4 id="crypto-heading" class="text-[10px] font-black text-zinc-500 uppercase">Crypto Protocol</h4>
-                            <span class="payment-pill"><i class="fab fa-bitcoin" aria-hidden="true"></i> Web3 Link</span>
-                        </div>
-                        <div class="bg-black/40 p-4 rounded-2xl border border-white/5 flex justify-between items-center">
-                            <p class="mono text-[8px] truncate text-zinc-400" id="crypto-address">0xeBe965EFe1ab53d2da915134d72e5BdBd5E3C053</p>
-                            <button class="copy-btn text-emerald-400 focus-visible:ring-2 focus-visible:ring-emerald-400" data-copy="0xeBe965EFe1ab53d2da915134d72e5BdBd5E3C053" aria-label="Copiar dirección cripto">
-                                <i class="far fa-copy" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </section>
-                </div>
-                <div class="mt-10 pt-6 border-t border-white/10 text-center">
-                    <span id="finalPriceDisplay" class="text-5xl font-black text-emerald-400" aria-label="Precio de inversión">$0.00</span>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- FEATURES -->
+<section class="section" id="categorias">
+<div class="section-hd"><h2>¿Qué incluye cada producto?</h2><p>Contenido completo para dominar cualquier área de la IA</p></div>
+<div class="feat-grid">
+<div class="feat-card"><div class="feat-icon">🎥</div><h3>Video HD</h3><p>Clases en video de alta calidad con explicaciones paso a paso</p></div>
+<div class="feat-card"><div class="feat-icon">📄</div><h3>Guía PDF</h3><p>Más de 30 páginas de documentación detallada</p></div>
+<div class="feat-card"><div class="feat-icon">🎧</div><h3>Audio</h3><p>Versión audio para aprender mientras te desplazas</p></div>
+<div class="feat-card"><div class="feat-icon">⚙️</div><h3>Workflows n8n</h3><p>Automatizaciones listas para usar</p></div>
+<div class="feat-card"><div class="feat-icon">🔄</div><h3>Actualizaciones</h3><p>Contenido actualizado constantemente</p></div>
+<div class="feat-card"><div class="feat-icon">💬</div><h3>Soporte</h3><p>Comunidad vía Telegram</p></div>
+</div>
+</section>
 
-    <!-- AI Labs Overlay -->
-    <div id="aiLabsOverlay" class="modal-overlay fixed inset-0 hidden items-center justify-center p-8" role="dialog" aria-modal="true" aria-labelledby="labs-modal-title">
-        <div class="bg-zinc-950 border border-purple-500/30 w-full max-w-[1600px] rounded-[70px] overflow-hidden flex flex-col h-[90vh] relative shadow-2xl">
-            <button onclick="window.toggleOverlay('aiLabsOverlay', false)" class="absolute top-10 right-10 z-50 w-16 h-16 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white border border-white/10 focus-visible:ring-2 focus-visible:ring-purple-400" aria-label="Cerrar laboratorios de IA">
-                <i class="fas fa-times text-3xl" aria-hidden="true"></i>
-            </button>
-            <div class="p-14 border-b border-white/5 flex items-center gap-6 bg-black/40">
-                <div class="w-16 h-16 rounded-full bg-purple-600/20 flex items-center justify-center">
-                    <i class="fas fa-flask text-purple-400 text-3xl" aria-hidden="true"></i>
-                </div>
-                <h2 id="labs-modal-title" class="text-5xl font-black uppercase italic tracking-tighter">AI <span class="text-purple-400">LABS</span> SUPREMO</h2>
-            </div>
-            <div class="flex-1 overflow-y-auto p-12 grid lg:grid-cols-3 gap-12">
-                <!-- Visual Synthesis -->
-                <section class="lab-card space-y-6" aria-labelledby="image-gen-title">
-                    <h3 id="image-gen-title" class="text-2xl font-black italic uppercase"><i class="fas fa-wand-magic-sparkles text-purple-400 mr-2" aria-hidden="true"></i> Synthesis</h3>
-                    <p class="text-[9px] mono text-zinc-500 uppercase">Gemini 2.5 Flash Image</p>
-                    <textarea id="genPrompt" placeholder="Sintetizar activo visual galáctico..." class="w-full bg-black/50 border border-white/10 rounded-[30px] p-6 text-sm mono outline-none focus:border-purple-500 h-32"></textarea>
-                    <div id="genResult" class="hidden w-full aspect-square rounded-[40px] overflow-hidden border border-purple-500/40 bg-zinc-900 flex items-center justify-center shadow-2xl"></div>
-                    <button id="btnGenerate" class="w-full bg-purple-600 py-6 rounded-[30px] font-black uppercase text-xs tracking-[0.2em]">SINTETIZAR</button>
-                </section>
-                <!-- Image Editor -->
-                <section class="lab-card space-y-6" aria-labelledby="image-edit-title">
-                    <h3 id="image-edit-title" class="text-2xl font-black italic uppercase"><i class="fas fa-magic text-blue-400 mr-2" aria-hidden="true"></i> Editor</h3>
-                    <p class="text-[9px] mono text-zinc-500 uppercase">Nano Banana Powered</p>
-                    <div class="space-y-4">
-                        <label class="block text-[10px] mono text-zinc-400 uppercase">Imagen Base:</label>
-                        <div id="editBasePreview" class="w-full aspect-video rounded-3xl bg-zinc-900/50 border border-dashed border-white/10 flex items-center justify-center overflow-hidden">
-                            <span class="text-[9px] text-zinc-600 italic">No hay imagen base</span>
-                        </div>
-                        <textarea id="editPrompt" placeholder="Ej: 'Añade un filtro retro' o 'Cambia el fondo a marte'..." class="w-full bg-black/50 border border-white/10 rounded-[30px] p-6 text-sm mono outline-none focus:border-blue-500 h-24"></textarea>
-                        <button id="btnEditImage" class="w-full bg-blue-600 py-6 rounded-[30px] font-black uppercase text-xs tracking-[0.2em]">RE-SINTETIZAR</button>
-                    </div>
-                </section>
-                <!-- Video Synthesis -->
-                <section class="lab-card space-y-6" aria-labelledby="video-gen-title">
-                    <h3 id="video-gen-title" class="text-2xl font-black italic uppercase"><i class="fas fa-film text-emerald-400 mr-2" aria-hidden="true"></i> Temporal</h3>
-                    <p class="text-[9px] mono text-zinc-500 uppercase">Veo 3.1 Fast Preview</p>
-                    <textarea id="videoPrompt" placeholder="Sintetizar flujo temporal galáctico..." class="w-full bg-black/50 border border-white/10 rounded-[30px] p-6 text-sm mono outline-none focus:border-emerald-500 h-32"></textarea>
-                    <div id="videoGenStatus" class="hidden p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-center animate-pulse">
-                        <p class="mono text-[10px] uppercase text-emerald-400 font-black" id="videoStatusText">Conectando Veo...</p>
-                    </div>
-                    <div id="videoResult" class="hidden w-full aspect-video rounded-[40px] overflow-hidden border border-emerald-500/40 bg-zinc-900 flex items-center justify-center relative"></div>
-                    <button id="btnGenerateVideo" class="w-full bg-emerald-600 py-6 rounded-[30px] font-black uppercase text-xs tracking-[0.2em]">SINTETIZAR VIDEO</button>
-                </section>
-            </div>
-        </div>
-    </div>
+<!-- PRODUCTS -->
+<section class="section" id="productos">
+<div class="section-hd"><h2>Explora el Catálogo</h2><p>Más de 1 millón de productos organizados por categoría y nivel</p></div>
+<div class="search-wrap"><i class="fas fa-search search-ico"></i><input type="text" class="search-inp" placeholder="Buscar productos de IA..." id="searchInput"></div>
+<div class="filters">
+<div class="filter active" data-filter="all">Todos</div>
+<div class="filter" data-filter="starter">🟢 Starter</div>
+<div class="filter" data-filter="ready">🔵 Ready</div>
+<div class="filter" data-filter="superpremium">🟡 Super Premium</div>
+</div>
+<div class="grid" id="productsGrid">
+<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--dim)">
+<div style="width:40px;height:40px;border:3px solid var(--cyan);border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 1rem"></div>
+<p>Cargando catálogo de 1,020,895 productos...</p>
+</div>
+</div>
+</section>
 
-    <!-- DIHACKTOR Chat Overlay -->
-    <div id="aiOverlay" class="modal-overlay fixed inset-0 hidden items-center justify-center p-8" role="dialog" aria-modal="true" aria-labelledby="chat-modal-title">
-        <div class="bg-zinc-950 border border-emerald-500/30 w-full max-w-4xl rounded-[50px] overflow-hidden flex flex-col h-[80vh]">
-            <div class="p-10 border-b border-white/5 flex justify-between items-center bg-black/40">
-                <h2 id="chat-modal-title" class="text-2xl font-black italic uppercase flex items-center gap-3">
-                    <i class="fas fa-mask text-emerald-400" aria-hidden="true"></i> DIHACKTOR <span class="text-emerald-400">NEXUS</span>
-                </h2>
-                <button onclick="window.toggleOverlay('aiOverlay', false)" class="text-zinc-500 hover:text-white focus-visible:ring-2 focus-visible:ring-emerald-400" aria-label="Cerrar chat DIHACKTOR">
-                    <i class="fas fa-times text-xl" aria-hidden="true"></i>
-                </button>
-            </div>
-            <div id="aiChat" class="flex-1 p-10 overflow-y-auto space-y-8 mono text-sm" aria-live="polite"></div>
-            <div id="typingIndicator" class="px-10 py-4 hidden">
-                <div class="typing-indicator" aria-hidden="true">
-                    <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
-                </div>
-                <span class="sr-only">DIHACKTOR está procesando su consulta...</span>
-            </div>
-            <div class="p-8 bg-black/80 flex gap-4">
-                <label for="aiInput" class="sr-only">Escriba su consulta para el DIHACKTOR</label>
-                <input type="text" id="aiInput" placeholder="Define tu interés galáctico..." class="flex-1 bg-white/5 border border-white/10 rounded-full p-5 text-white outline-none focus:border-emerald-500">
-                <button id="sendAiBtn" class="bg-emerald-600 text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow-xl hover:bg-emerald-500 transition-all focus-visible:ring-2 focus-visible:ring-white" aria-label="Enviar mensaje">
-                    <i class="fas fa-bolt" aria-hidden="true"></i>
-                </button>
-            </div>
-        </div>
-    </div>
+<!-- CTA / COMPRAR -->
+<section class="section" id="comprar">
+<div class="cta-box">
+<h2>¿Listo para dominar la IA?</h2>
+<p>1,020,895 productos. 80+ expertos. 20 categorías.<br>Precio fijo: <strong style="color:var(--green);">$6.99 USD</strong></p>
+<button class="btn btn-primary" style="font-size:1.1rem;padding:1.25rem 3rem;" onclick="showBuy('DIHACKTOR Ω — Acceso Completo',6.99)"><i class="fas fa-rocket"></i> Comprar Ahora — $6.99 USD</button>
+<div style="max-width:600px;margin:2rem auto 0;text-align:left">
+<div class="pay-method pay-vitawallet"><h4><i class="fas fa-star"></i> VITAWALLET (Principal)</h4><p>🇺🇸 <strong>USA:</strong> Lead Bank | Routing: 101019644 | Cuenta: 217656110014</p><p>🇪🇺 <strong>Europa:</strong> IBAN MT53SYPL39480225701035648622803 | BIC SYPLMTM2XXX</p><p style="font-size:.75rem;color:var(--dim);">Titular: Diego Edgardo Cortez Yanez</p></div>
+<div class="pay-method pay-crypto"><h4><i class="fab fa-bitcoin"></i> Criptomonedas</h4><p>🟡 USDT (BEP20): 0xaf2eeae496a6c90d60173b386924127b5eefd0e8</p><p>₿ BTC: bc1q4est0k205zpl490zl2ypmgphm8d2t7z5k9sz3a</p><p>💎 ETH: 0x58d84e047be839ffa0be97137eec0083775246c8</p><p>🔷 SOL: 2jKUmCWJZTF1tRuuhiuZuDUd3xYehX3gEHeH3BWo8Kmm</p></div>
+<div class="pay-method pay-bank"><h4><i class="fas fa-university"></i> Transferencia Bancaria</h4><p>🇧🇴 <strong>Bolivia:</strong> Banco Mercantil Santa Cruz | Cuenta: 4069474188 | CI: 5808841TJ</p></div>
+</div>
+<p style="margin-top:1.5rem;font-size:.8rem;color:var(--dim);">🔒 Pago seguro • Acceso inmediato • Garantía de 7 días<br>📧 Envía comprobante a: <strong>techinnovationany@gmail.com</strong></p>
+</div>
+</section>
 
-    <!-- Share Overlay -->
-    <div id="shareOverlay" class="modal-overlay fixed inset-0 hidden items-center justify-center p-8" role="dialog" aria-modal="true" aria-labelledby="share-modal-title">
-        <div class="bg-zinc-950 border border-white/10 w-full max-w-2xl rounded-[60px] p-12 text-center space-y-10 shadow-2xl">
-            <h3 id="share-modal-title" class="text-3xl font-black italic uppercase tracking-tighter">Propagar <span class="text-purple-400">Conexión</span></h3>
-            <p id="shareProdTitle" class="text-zinc-500 mono text-xs uppercase tracking-widest font-bold"></p>
-            <div id="shareSocialLinks" class="grid grid-cols-5 gap-6" aria-label="Seleccione red social para compartir"></div>
-            <button onclick="window.toggleOverlay('shareOverlay', false)" class="text-zinc-500 uppercase font-black text-xs tracking-[0.4em] focus-visible:ring-2 focus-visible:ring-white" aria-label="Cerrar ventana de compartir">Cerrar</button>
-        </div>
-    </div>
+<!-- FOOTER -->
+<footer class="footer">
+<div class="footer-social">
+<a href="https://www.linkedin.com/in/diego-cortez-b7330b295/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+<a href="https://www.instagram.com/techinnovationany/" target="_blank"><i class="fab fa-instagram"></i></a>
+<a href="https://github.com/tortuguitahack" target="_blank"><i class="fab fa-github"></i></a>
+<a href="https://t.me/d3h1ckt4r_bot" target="_blank"><i class="fab fa-telegram"></i></a>
+</div>
+<div class="footer-links"><a href="#productos">Productos</a><a href="#categorias">Categorías</a><a href="#expertos">Expertos</a><a href="#comprar">Comprar</a><a href="https://t.me/d3h1ckt4r_bot">Telegram</a></div>
+<p class="footer-copy">© 2026 DIHACKTOR Ω — 1,020,895 productos | $6.99 USD | Sin Stripe</p>
+</footer>
 
-    <div id="toastContainer" class="fixed bottom-12 right-12 z-[300] flex flex-col gap-6" aria-live="assertive"></div>
+<!-- BUY MODAL -->
+<div class="modal-overlay" id="buyModal">
+<div class="modal">
+<button class="modal-close" onclick="closeBuy()">&times;</button>
+<h2><i class="fas fa-shopping-cart"></i> Comprar Producto</h2>
+<p class="prod-name" id="buyName">Producto</p>
+<p class="prod-price" id="buyPrice">$6.99 USD</p>
+<div class="pay-method pay-vitawallet"><h4><i class="fas fa-star"></i> VITAWALLET (Principal)</h4><p>🇺🇸 Lead Bank | Routing: 101019644 | Cuenta: 217656110014</p><p>🇪🇺 IBAN: MT53SYPL39480225701035648622803</p></div>
+<div class="pay-method pay-crypto"><h4><i class="fab fa-bitcoin"></i> Criptomonedas</h4><p>USDT: 0xaf2eeae496a6c90d60173b386924127b5eefd0e8</p><p>BTC: bc1q4est0k205zpl490zl2ypmgphm8d2t7z5k9sz3a</p></div>
+<div class="pay-method pay-bank"><h4><i class="fas fa-university"></i> Transferencia</h4><p>🇧🇴 Banco Mercantil Santa Cruz | Cuenta: 4069474188</p></div>
+<p style="font-size:.75rem;color:var(--dim);text-align:center;margin-top:1rem;">Envía comprobante a: <strong>techinnovationany@gmail.com</strong></p>
+</div>
+</div>
 
-    <script type="module" src="index.tsx"></script>
-    <script>
-        const starsContainer = document.getElementById('stars-container');
-        for(let i=0; i<300; i++){
-            const star = document.createElement('div');
-            star.className = 'stars';
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            const size = Math.random() * 2 + 0.5;
-            star.style.width = size + 'px';
-            star.style.height = size + 'px';
-            star.style.setProperty('--d', (Math.random() * 4 + 2) + 's');
-            starsContainer.appendChild(star);
-        }
-    </script>
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+<script>
+const IMGS={"IA Marketing":"https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80","Copywriting IA":"https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&q=80","Automatización n8n":"https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&q=80","SEO con IA":"https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=600&q=80","Email Marketing IA":"https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=600&q=80","Imágenes IA":"https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=80","Video IA":"https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=600&q=80","Chatbots IA":"https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=600&q=80","E-commerce IA":"https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80","Micro-SaaS IA":"https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80","default":"https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80"};
+const EXPERTS=["Alex Hormozi","Jeff Bezos","Frank Kern","Naval Ravikant","Andrew Ng","Gary Vaynerchuk","Neil Patel","Tim Ferriss","Russell Brunson","Pat Flynn","MrBeast","Warren Buffett","Robert Kiyosaki","Seth Godin","Grant Cardone","Ben Settle","Simon Sinek","Tony Robbins","Marie Forleo","Dan Kennedy"];
+const CATS=["IA Marketing","Copywriting IA","Automatización n8n","SEO con IA","Email Marketing IA","Imágenes IA","Video IA","Chatbots IA","E-commerce IA","Micro-SaaS IA","Affiliate IA","Podcast IA","Presentaciones IA","Plan de Negocio IA","Trading IA","Freelancing IA","Productividad IA","Análisis Datos IA","Voice AI","IA Generativa"];
+const LEVELS=["starter","ready","superpremium"];
+const LVL={starter:"Starter",ready:"Ready",superpremium:"Super Premium"};
+let products=[];
+async function loadProducts(){
+try{
+const r=await fetch('api/products.json?limit=100');
+const d=await r.json();
+products=d.products.map(p=>({...p,img:IMGS[p.categoria]||IMGS["default"],exp:EXPERTS[Math.floor(Math.random()*EXPERTS.length)],cat:p.categoria||CATS[Math.floor(Math.random()*CATS.length)]}));
+render(products);
+}catch(e){products=gen(24);render(products)}
+}
+function gen(n){const p=[];for(let i=0;i<n;i++){const c=CATS[i%CATS.length],e=EXPERTS[i%EXPERTS.length],l=LEVELS[i%LEVELS.length];p.push({id:`prod_${i}`,title:`Tutorial ${c} 2026 — Método ${e}`,description:`Aprende ${c} desde cero. Video HD + PDF + Audio + Workflows.`,cat:c,exp:e,lvl:l,img:IMGS[c]||IMGS["default"],precio:6.99})}return p}
+function render(p){
+const g=document.getElementById('productsGrid');
+if(!p.length){g.innerHTML='<p style="grid-column:1/-1;text-align:center;color:var(--dim);padding:4rem;">No se encontraron productos.</p>';return}
+g.innerHTML=p.map(x=>`<div class="card" data-level="${x.lvl}" data-cat="${x.cat}">
+<div class="card-img-wrap"><img src="${x.img}" alt="${x.cat}" class="card-img" loading="lazy" onerror="this.src='${IMGS["default"]}'"><div class="card-level l-${x.lvl}">${LVL[x.lvl]||x.lvl}</div><div class="card-price">$${x.precio||6.99}</div></div>
+<div class="card-body"><div class="card-cat">${x.cat}</div><h3 class="card-title">${x.title}</h3><p class="card-desc">${x.description||'Tutorial completo.'}</p><div class="card-exp">👨‍🏫 <span>${x.exp}</span></div><button class="card-btn" onclick="showBuy('${x.title.replace(/'/g,"\\'")}',${x.precio||6.99})"><i class="fas fa-shopping-cart"></i> Comprar — $6.99</button></div>
+</div>`).join('');
+}
+document.querySelectorAll('.filter').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));t.classList.add('active');const f=t.dataset.filter;if(f==='all')render(products);else render(products.filter(p=>p.lvl===f))})});
+document.getElementById('searchInput').addEventListener('input',e=>{const q=e.target.value.toLowerCase();render(products.filter(p=>p.title.toLowerCase().includes(q)||p.cat.toLowerCase().includes(q)))});
+function showBuy(name,price){document.getElementById('buyName').innerText=name;document.getElementById('buyPrice').innerText='$'+price+' USD';document.getElementById('buyModal').classList.add('active')}
+function closeBuy(){document.getElementById('buyModal').classList.remove('active')}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+loadProducts();
+</script>
 </body>
 </html>

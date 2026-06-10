@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMEGA | CAPA 7 - Acceso Root</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg:#020617;--primary:#6366f1;--success:#10b981;--gold:#f59e0b;--danger:#ef4444}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:#fff;text-align:center;overflow-x:hidden}
+        .ultimatum{background:linear-gradient(90deg,var(--danger),#ff6b00);color:#fff;padding:15px;font-weight:900;letter-spacing:1px;animation:pulse 1s infinite}
+        @keyframes pulse{0%{opacity:1}50%{opacity:.8}100%{opacity:1}}
+        header{padding:2rem;border-bottom:1px solid rgba(255,255,255,.1)}
+        .logo{font-family:'Orbitron',sans-serif;font-size:2.5rem;background:linear-gradient(90deg,var(--primary),var(--success));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .container{max-width:1200px;margin:0 auto;padding:2rem}
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2rem;margin-top:2rem}
+        .card{background:rgba(30,41,59,.4);border:1px solid rgba(255,255,255,.1);border-radius:15px;padding:2rem;display:flex;flex-direction:column;transition:.3s;position:relative}
+        .card:hover{transform:translateY(-5px);border-color:var(--success);box-shadow:0 0 20px rgba(16,185,129,.2)}
+        .badge{position:absolute;top:10px;right:10px;padding:5px 10px;font-size:.7rem;font-weight:800;border-radius:5px;text-transform:uppercase}
+        h3{font-family:'Orbitron';margin-bottom:10px;font-size:1.2rem}
+        p{color:#94a3b8;font-size:.9rem;margin-bottom:20px;flex-grow:1}
+        .price{font-size:2.5rem;font-weight:900;color:var(--success);margin-bottom:20px;display:block}
+        .old-price{text-decoration:line-through;color:#64748b;font-size:1rem}
+        .btn{display:block;padding:15px;border-radius:8px;font-weight:900;text-decoration:none;text-transform:uppercase;transition:.3s;color:#fff;border:none;cursor:pointer;text-align:center}
+        .btn-universal{background:linear-gradient(90deg,#f59e0b,#d97706);box-shadow:0 4px 15px rgba(245,158,11,.4)}
+        .btn-universal:hover{transform:scale(1.05)}
+        .btn-crypto{background:linear-gradient(90deg,#00f2ff,#bc13fe)}
+        .btn-bank{background:linear-gradient(90deg,#10b981,#059669)}
+        .payment-box{background:rgba(139,92,246,.1);border:2px solid #bc13fe;border-radius:12px;padding:1.5rem;margin:1rem 0;text-align:left}
+        .payment-box h4{color:#bc13fe;margin-bottom:.5rem}
+        .payment-box p{font-size:.85rem;color:#94a3b8;margin-bottom:.3rem}
+        .footer-secure{margin-top:3rem;padding:2rem;border-top:1px solid rgba(255,255,255,.1);color:#64748b;font-size:.8rem}
+    </style>
+</head>
+<body>
+    <div class="ultimatum">⚠️ ACCESO ROOT ACTIVO — DIEGO CORTEZ — CAPA 7 GLOBAL</div>
+    <header>
+        <div class="logo">CAPA 7 // OMEGA</div>
+        <p>Infraestructura de Expertos — Despliegue Mundial</p>
+    </header>
+    <main class="container">
+        <h2 style="font-family:'Orbitron';color:var(--gold);">SELECCIONA TU NIVEL DE ACCESO</h2>
+        <div class="grid">
+            <div class="card" style="border:2px solid var(--gold)">
+                <span class="badge" style="background:var(--gold);color:#000;">SIN BLOQUEOS</span>
+                <h3>NODO DE ENTRADA</h3>
+                <p>Acceso rápido. Acepta cualquier divisa global. Vitawallet + Crypto.</p>
+                <div class="price">$3.33 <span class="old-price">$15</span></div>
+                <button class="btn btn-universal" onclick="showPay('NODO ENTRADA',3.33)">⚡ PAGAR (CUALQUIER MONEDA)</button>
+            </div>
+            <div class="card">
+                <span class="badge" style="background:var(--primary);">ESTÁNDAR</span>
+                <h3>PACK 1000 EXPERTOS</h3>
+                <p>La base de datos completa de métodos y sistemas.</p>
+                <div class="price">$7.77 <span class="old-price">$49</span></div>
+                <button class="btn btn-crypto" onclick="showPay('PACK 1000 EXPERTOS',7.77)">💳 PAGAR</button>
+            </div>
+            <div class="card">
+                <span class="badge" style="background:var(--success);">SAAS</span>
+                <h3>UNTITLENEXUS V3</h3>
+                <p>Infraestructura completa para agencias. Licencia de uso.</p>
+                <div class="price">$19.99 <span class="old-price">$149</span></div>
+                <button class="btn btn-crypto" onclick="showPay('UNTITLENEXUS V3',19.99)">💳 PAGAR</button>
+            </div>
+            <div class="card" style="background:linear-gradient(145deg,#0f172a,#312e81)">
+                <span class="badge" style="background:#fff;color:#000;">CÓDIGO FUENTE</span>
+                <h3>MASTER ARCHITECT</h3>
+                <p>El código fuente completo de todo el ecosistema.</p>
+                <div class="price">$197 <span class="old-price">$2500</span></div>
+                <button class="btn btn-universal" onclick="showPay('MASTER ARCHITECT',197)">💎 DESCARGAR CÓDIGO</button>
+            </div>
+        </div>
+        <div class="footer-secure">
+            <p>PAGOS PROCESADOS A: <strong>DIEGO EDGARDO CORTEZ YAÑEZ</strong></p>
+            <p>VITAWALLET (Lead Bank USA / OpenPayd EU) • CRYPTO (USDT/BTC/ETH) • TRANSFERENCIA GLOBAL</p>
+        </div>
+    </main>
+    <div id="payModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.9);align-items:center;justify-content:center;">
+        <div style="background:#0a0a1a;border:2px solid #bc13fe;border-radius:20px;padding:2rem;max-width:500px;width:90%;position:relative;">
+            <button onclick="document.getElementById('payModal').style.display='none'" style="position:absolute;top:1rem;right:1rem;background:none;border:none;color:#64748b;font-size:1.5rem;cursor:pointer;">&times;</button>
+            <h2 style="color:#00f2ff;margin-bottom:.5rem;" id="payTitle">Pagar</h2>
+            <p style="font-size:2rem;font-weight:900;color:#10b981;margin-bottom:1.5rem;" id="payPrice">$0.00</p>
+            <div class="payment-box"><h4>💳 VITAWALLET (Principal)</h4><p>🇺🇸 Lead Bank | Routing: 101019644 | Cuenta: 217656110014</p><p>🇪🇺 IBAN: MT53SYPL39480225701035648622803 | BIC: SYPLMTM2XXX</p><p style="font-size:.75rem;color:#64748b;">Titular: Diego Edgardo Cortez Yanez</p></div>
+            <div class="payment-box" style="border-color:#00f2ff"><h4 style="color:#00f2ff;">₿ CRIPTOMONEDAS</h4><p>USDT (BEP20): 0xaf2eeae496a6c90d60173b386924127b5eefd0e8</p><p>BTC: bc1q4est0k205zpl490zl2ypmgphm8d2t7z5k9sz3a</p><p>ETH: 0x58d84e047be839ffa0be97137eec0083775246c8</p></div>
+            <div class="payment-box" style="border-color:#10b981"><h4 style="color:#10b981;">🏦 TRANSFERENCIA BANCARIA</h4><p>🇧🇴 Bolivia: Banco Mercantil Santa Cruz | Cuenta: 4069474188 | CI: 5808841TJ</p></div>
+            <p style="font-size:.75rem;color:#64748b;text-align:center;margin-top:1rem;">Envía comprobante a: <strong>techinnovationany@gmail.com</strong></p>
+        </div>
+    </div>
+    <script>
+        function showPay(title,price){
+            document.getElementById('payTitle').innerText=title;
+            document.getElementById('payPrice').innerText='$'+price+' USD';
+            document.getElementById('payModal').style.display='flex';
+        }
+    </script>
+</body>
+</html>
