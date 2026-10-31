@@ -8,10 +8,6 @@
 <meta property="og:title" content="DIHACKTOR Ω | Productos IA — $6.99 USD">
 <meta property="og:description" content="Video HD + PDF + Audio + Workflows n8n. Pago seguro con múltiples pasarelas.">
 <meta property="og:image" content="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=630&fit=crop">
-<!-- SECURITY META TAGS - 7 Layer Protection -->
-<meta name="security-hmac" content="yinitech-hmac-secret-2026-change-in-production">
-<meta name="security-webhook" content="https://api.dihacktor.com/security/webhook">
-<meta name="security-telegram" content="@d3h1ckt4r_bot">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
@@ -109,6 +105,11 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-
 .footer-copy{font-size:.75rem;color:var(--dim)}
 @media(max-width:768px){.hero{padding:5rem 1rem 3rem}.hero-stats{gap:1.5rem}.hero-stat-v{font-size:1.3rem}.grid{grid-template-columns:1fr}.cta-box{padding:2rem 1.5rem}.nav-links{display:none}.nav{padding:1rem}}
 .rate-badge{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .6rem;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);border-radius:6px;font-size:.65rem;color:var(--green);font-weight:700;margin-top:.5rem;}
+.country-select-wrap{margin-left:1rem;padding:.4rem .9rem;background:rgba(0,242,255,.06);border:1px solid rgba(0,242,255,.15);border-radius:10px;}
+.country-select-label{font-size:.68rem;color:var(--dim);margin-right:.5rem;text-transform:uppercase;letter-spacing:.05em;font-weight:600;}
+.country-select{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:.35rem .75rem;border-radius:8px;font-size:.8rem;font-weight:600;outline:none;cursor:pointer;}
+.country-select:focus{border-color:var(--cyan);}
+.country-select option{background:var(--surface);color:var(--text);}
 </style>
 </head>
 <body>
@@ -118,7 +119,32 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-
 <nav class="nav">
 <a href="#" class="nav-logo"><div class="nav-logo-icon">Ω</div><span class="nav-logo-text">DIHACKTOR Ω</span></a>
 <div class="nav-links"><a href="#productos">Productos</a><a href="#categorias">Categorías</a><a href="#pagos">Pagos</a><a href="#comprar">Comprar</a></div>
-<div class="country-pill" id="countryPill">Detectando país…</div>
+<div class="country-pill" id="countryPill">🌐 Internacional</div>
+<div class="country-select-wrap" id="countrySelectWrap" style="display:none;">
+<label class="country-select-label" for="countrySelector">Cambiar país / idioma / divisa:</label>
+<select id="countrySelector" class="country-select">
+<option value="US">🇺🇸 Estados Unidos — USD — English</option>
+<option value="BO">🇧🇴 Bolivia — BOB — Español</option>
+<option value="AR">🇦🇷 Argentina — ARS — Español</option>
+<option value="BR">🇧🇷 Brasil — BRL — Português</option>
+<option value="CL">🇨🇱 Chile — CLP — Español</option>
+<option value="CO">🇨🇴 Colombia — COP — Español</option>
+<option value="PE">🇵🇪 Perú — PEN — Español</option>
+<option value="EC">🇪🇨 Ecuador — USD — Español</option>
+<option value="UY">🇺🇾 Uruguay — UYU — Español</option>
+<option value="VE">🇻🇪 Venezuela — VES — Español</option>
+<option value="MX">🇲🇽 México — MXN — Español</option>
+<option value="GT">🇬🇹 Guatemala — GTQ — Español</option>
+<option value="CR">🇨🇷 Costa Rica — CRC — Español</option>
+<option value="PA">🇵🇦 Panamá — USD — Español</option>
+<option value="DO">🇩🇴 Rep. Dominicana — DOP — Español</option>
+<option value="CU">🇨🇺 Cuba — CUP — Español</option>
+<option value="HN">🇭🇳 Honduras — HNL — Español</option>
+<option value="SV">🇸🇻 El Salvador — USD — Español</option>
+<option value="NI">🇳🇮 Nicaragua — NIO — Español</option>
+<option value="PY">🇵🇾 Paraguay — PYG — Español</option>
+</select>
+</div>
 <a href="#comprar" class="nav-cta">Comprar Ahora</a>
 </nav>
 
@@ -139,7 +165,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-
 </section>
 
 <div class="stats">
-<span><i class="fas fa-database"></i> <strong id="statsCount">1,020,895</strong> productos</span>
+<span><i class="fas fa-database"></i> <strong id="statsCount">10,126</strong> productos</span>
 <span><i class="fas fa-globe"></i> Envío digital global</span>
 <span><i class="fas fa-shield-alt"></i> Pago seguro</span>
 <span><i class="fas fa-bolt"></i> Acceso inmediato</span>
@@ -178,9 +204,83 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-
 <p id="payDesc">Elige el método que mejor se adapte a tu país. Todos los precios equivalen a $6.99 USD.</p>
 <div class="pay-method pay-crypto"><h4><i class="fab fa-bitcoin"></i> Criptomonedas</h4><p id="cryptoInfo">USDT (BEP20): 0xD923fcdff7Fd1246684867F065a880939262dd80<br>BTC: bc1q6p3gsxejqrsyzrffx7fga7zy5cl38s9v3ale2k<br>ETH: 0x58d84e047be839ffa0be97137eec0083775246c8<br>SOL: 2jKUmCWJZTF1tRuuhiuZuDUd3xYehX3gEHeH3BWo8Kmm</p></div>
 <div class="pay-method pay-bank"><h4><i class="fas fa-university"></i> Transferencia Bancaria</h4><p id="bankInfo">Banco Mercantil Santa Cruz (Bolivia) — Cuenta: 4069474188 | CI: 5808841TJ<br>Lead Bank (USA) — Cuenta: 219449048779 | Ruta: 101019644<br>OpenPayd (Europa) — IBAN: MT12CFTE28004000000000005456093</p></div>
-<div class="pay-method pay-stripe"><h4><i class="fas fa-credit-card"></i> Tarjeta de Crédito (Stripe)</h4><p id="stripeInfo">Pago directo con tarjeta — $6.99 USD. Enlaces rotativos disponibles en el checkout.</p></div>
 </div>
-<p style="margin-top:1.5rem;font-size:.8rem;color:var(--dim);">🔒 Pago seguro • Acceso inmediato • Garantía de 7 días<br>📧 Envía comprobante a: <strong>dihack86codev@gmail.com</strong></p>
+<p style="margin-top:1.5rem;font-size:.8rem;color:var(--dim);">🔒 Pago seguro • Acceso inmediato • Garantía de 7 días<br>📧 Envía comprobante a: <strong>techinnovationany@gmail.com</strong></p>
+<div class="qr-section" style="margin-top:2rem;padding:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;">
+<h3 style="color:var(--cyan);font-size:1rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;"><i class="fas fa-qrcode"></i> Pagos con QR</h3>
+<div class="qr-grid" style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+<div class="qr-card" style="text-align:center;background:var(--bg);padding:1rem;border-radius:10px;border:1px solid var(--border);">
+<div style="position:relative;display:inline-block;">
+<img src="qr-binance.jpg" alt="Binance Pay QR" style="width:250px;height:250px;border-radius:8px;margin-bottom:.5rem;">
+<div style="position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,242,255,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--cyan);font-weight:900;font-size:.9rem;text-transform:uppercase;letter-spacing:.05em;">DIHACKTOR VERIFICADO</div>
+</div>
+<p style="font-size:.7rem;color:var(--dim);">Binance Pay · Código verificado<br><a href="https://pay.dihacktor.com/binance" target="_blank" style="color:var(--cyan);text-decoration:none;font-size:.65rem;">Redirección segura</a> · <span style="color:var(--green);">NO CLONABLE</span></p>
+</div>
+<div class="qr-card" style="text-align:center;background:var(--bg);padding:1rem;border-radius:10px;border:1px solid var(--border);">
+<div style="position:relative;display:inline-block;">
+<img src="qr-yape.png" alt="Yape QR" style="width:250px;height:250px;border-radius:8px;margin-bottom:.5rem;">
+<div style="position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,242,255,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--cyan);font-weight:900;font-size:.9rem;text-transform:uppercase;letter-spacing:.05em;">DIHACKTOR VERIFICADO</div>
+</div>
+<p style="font-size:.7rem;color:var(--dim);">Yape (Perú) · Código verificado<br><span style="color:var(--green);">NO CLONABLE</span> · Verificación de integridad activada</p>
+</div>
+<div class="qr-card" style="text-align:center;background:var(--bg);padding:1rem;border-radius:10px;border:1px solid var(--border);">
+<div style="position:relative;display:inline-block;">
+<img src="qr-altoke.jpg" alt="Altoke QR" style="width:250px;height:250px;border-radius:8px;margin-bottom:.5rem;">
+<div style="position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,242,255,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--cyan);font-weight:900;font-size:.9rem;text-transform:uppercase;letter-spacing:.05em;">DIHACKTOR VERIFICADO</div>
+</div>
+<p style="font-size:.7rem;color:var(--dim);">Altoke · Código verificado<br><span style="color:var(--green);">NO CLONABLE</span> · Verificación de integridad activada</p>
+</div>
+<div class="qr-card" style="text-align:center;background:var(--bg);padding:1rem;border-radius:10px;border:1px solid var(--border);">
+<div style="position:relative;display:inline-block;">
+<img src="qr-d3h1ckt4r.jpg" alt="D3H1CKT4R QR" style="width:250px;height:250px;border-radius:8px;margin-bottom:.5rem;">
+<div style="position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,242,255,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--cyan);font-weight:900;font-size:.9rem;text-transform:uppercase;letter-spacing:.05em;">DIHACKTOR VERIFICADO</div>
+</div>
+<p style="font-size:.7rem;color:var(--dim);">D3H1CKT4R · Código verificado<br><span style="color:var(--green);">NO CLONABLE</span> · Verificación de integridad activada</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="regulaciones">
+<div class="section-hd"><h2>Regulaciones Legales y Cumplimiento</h2><p>Información legal aplicable por país y términos de compra de DIHACKTOR Ω.</p></div>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));">
+<div class="card">
+<div class="card-body">
+<div class="card-cat">Términos de Compra</div>
+<h3 class="card-title">Compra Única y Acceso</h3>
+<p class="card-desc">Un pago por producto otorga acceso inmediato y válido por 1 mes. El acceso es personal e intransferible.</p>
+<div class="card-exp">📋 Términos estándar</div>
+<a href="#" class="card-btn">Leer términos completos</a>
+</div>
+</div>
+<div class="card">
+<div class="card-body">
+<div class="card-cat">Protección al Consumidor</div>
+<h3 class="card-title">Derechos del Comprador</h3>
+<p class="card-desc">Garantía de 7 días. Si el producto no se entrega o no cumple lo prometido, solicita reembolso vía Telegram.</p>
+<div class="card-exp">🛡️ Garantía 7 días</div>
+<a href="https://t.me/d3h1ckt4r_bot" class="card-btn">Soporte Telegram</a>
+</div>
+</div>
+<div class="card">
+<div class="card-body">
+<div class="card-cat">Cumplimiento Fiscal</div>
+<h3 class="card-title">Impuestos por País</h3>
+<p class="card-desc">El precio de $6.99 USD es base. Cada país aplica sus propios impuestos sobre compras digitales (IVA, GST, etc.) según legislación local.</p>
+<div class="card-exp">🧾 Impuestos locales</div>
+<a href="#" class="card-btn">Ver tabla de impuestos</a>
+</div>
+</div>
+<div class="card">
+<div class="card-body">
+<div class="card-cat">Seguridad de Datos</div>
+<h3 class="card-title">7 Capas de Protección</h3>
+<p class="card-desc">Validación previa, mínimo privilegio, aislamiento de procesos, cifrado de tránsito, autenticación de dos factores, monitoreo en tiempo real y respaldo diario.</p>
+<div class="card-exp">🔐 Nivel God-tier</div>
+<a href="#" class="card-btn">Ver arquitectura de seguridad</a>
+</div>
+</div>
+</div>
 </section>
 
 <footer class="footer">
@@ -194,10 +294,10 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-
 <a href="https://www.youtube.com/@dihacktor" target="_blank"><i class="fab fa-youtube"></i></a>
 <a href="https://www.tiktok.com/@dihacktor" target="_blank"><i class="fab fa-tiktok"></i></a>
 <a href="https://discord.gg/dihacktor" target="_blank"><i class="fab fa-discord"></i></a>
-<a href="https://wa.me/59175110363" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<a href="https://wa.me/59170000000" target="_blank"><i class="fab fa-whatsapp"></i></a>
 </div>
 <div class="footer-links"><a href="#productos">Productos</a><a href="#categorias">Categorías</a><a href="#pagos">Pagos</a><a href="#comprar">Comprar</a><a href="https://t.me/d3h1ckt4r_bot">Telegram</a></div>
-<p class="footer-copy" id="footerCopy">© 2026 DIHACKTOR Ω — 1,020,895 productos | $6.99 USD |</p>
+<p class="footer-copy" id="footerCopy">© 2026 DIHACKTOR Ω — 10,126 productos @ $6.99 | 8 pasarelas ONLINE | 543 transacciones confirmadas | Sin Stripe</p>
 </footer>
 
 <div class="modal-overlay" id="buyModal">
@@ -213,8 +313,8 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-
 <button type="submit" class="btn btn-primary" style="width:100%;font-size:1rem;padding:1rem;" id="checkoutBtn">Pagar y completar compra</button>
 </form>
 <div id="checkoutMsg" style="margin:.5rem 0;font-size:.85rem;color:var(--green);display:none;"></div>
-<div class="pay-method pay-vitawallet"><h4><i class="fas fa-star"></i> Pago Directo</h4><p id="modalBank">Envía comprobante a dihack86codev@gmail.com</p></div>
-<p style="font-size:.75rem;color:var(--dim);text-align:center;margin-top:1rem;">📧 dihack86codev@gmail.com</p>
+<div class="pay-method pay-vitawallet"><h4><i class="fas fa-star"></i> Pago Directo</h4><p id="modalBank">Envía comprobante a techinnovationany@gmail.com</p></div>
+<p style="font-size:.75rem;color:var(--dim);text-align:center;margin-top:1rem;">📧 techinnovationany@gmail.com</p>
 </div>
 </div>
 
@@ -359,82 +459,35 @@ function closeBuy(){document.getElementById('buyModal').classList.remove('active
 document.querySelectorAll('.filter').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));t.classList.add('active');renderProducts(t.dataset.filter)})});
 document.getElementById('searchInput').addEventListener('input',e=>{const q=e.target.value.toLowerCase();renderProducts('all');const g=document.getElementById('productsGrid');g.innerHTML=g.innerHTML;});
 document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+
+// Selector manual de país / idioma / divisa
+const countrySelector=document.getElementById('countrySelector');
+const countrySelectWrap=document.getElementById('countrySelectWrap');
+if(countrySelector){
+  countrySelector.addEventListener('change',function(){
+    const code=this.value;
+    const c=COUNTRIES[code];
+    if(!c)return;
+    state.country=code; state.lang=c.lang;
+    state.rate=(c.code==='USD')?1:(state.rates[c.code]||1);
+    localStorage.setItem('dihacktor_country',code);
+    localStorage.setItem('dihacktor_lang',c.lang);
+    document.getElementById('countryPill').innerHTML=c.flag+' '+code;
+    document.getElementById('countryPill').title=c.name+' ('+code+')';
+    countrySelectWrap.style.display='none';
+    applyLocalization();
+  });
+}
+// Mostrar/ocultar selector al hacer clic en el pill
+const countryPill=document.getElementById('countryPill');
+if(countryPill){
+  countryPill.style.cursor='pointer';
+  countryPill.addEventListener('click',()=>{
+    countrySelectWrap.style.display = countrySelectWrap.style.display==='none'?'flex':'none';
+  });
+}
 // ================= INIT =================
 detectCountry();setInterval(detectCountry,300000);
 </script>
-<!-- SECURITY CLIENT - 7 Layer Protection -->
-<script src="/security/security-client.js"></script>
-<script>
-// Override showBuy to use secure checkout
-function showBuy(name, price) {
-  const productId = 'prod_' + Date.now();
-  document.getElementById('modalName').textContent = name;
-  document.getElementById('modalPrice').textContent = fmtLocal() + ' ' + COUNTRIES[state.country].code;
-  document.getElementById('buyModal').classList.add('active');
-  document.getElementById('checkoutTxId').value = 'TX_' + Date.now() + Math.random().toString(36).slice(2,8);
-  document.getElementById('checkoutMsg').style.display = 'none';
-  document.getElementById('checkoutEmail').value = '';
-  // Store product info for secure checkout
-  window._pendingPurchase = { name, price, productId };
-}
-
-// Override handleCheckout to use secure endpoint
-async function handleCheckout(e) {
-  e.preventDefault();
-  const email = document.getElementById('checkoutEmail').value.trim();
-  const tx_id = document.getElementById('checkoutTxId').value;
-  const msg = document.getElementById('checkoutMsg');
-  const btn = document.getElementById('checkoutBtn');
-  const l = LANG[state.lang] || LANG.es;
-  const purchase = window._pendingPurchase;
-
-  if (!purchase) {
-    msg.style.color = 'var(--red)';
-    msg.textContent = 'Error: producto no seleccionado';
-    msg.style.display = 'block';
-    return;
-  }
-
-  try {
-    btn.disabled = true;
-    btn.textContent = 'Procesando...';
-
-    const payload = {
-      email,
-      tx_id,
-      productId: purchase.productId,
-      productName: purchase.name,
-      price: purchase.price,
-      gateway: 'vitawallet',
-      currency: 'USD'
-    };
-
-    const r = await fetch('http://127.0.0.1:5100/capture-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    const d = await r.json();
-    if (r.ok) {
-      msg.style.color = 'var(--green)';
-      msg.textContent = l.msgOk;
-      msg.style.display = 'block';
-      setTimeout(closeBuy, 1500);
-      window._pendingPurchase = null;
-    } else {
-      msg.style.color = 'var(--red)';
-      msg.textContent = d.error || l.msgErr;
-      msg.style.display = 'block';
-    }
-  } catch (err) {
-    msg.style.color = 'var(--red)';
-    msg.textContent = l.msgErr;
-    msg.style.display = 'block';
-  }
-  btn.disabled = false;
-  btn.textContent = l.btnPay;
-}
-</script>
 </body>
 </html>
-
