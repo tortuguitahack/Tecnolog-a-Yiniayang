@@ -417,7 +417,7 @@ async function handleCheckout(e){
   const email=document.getElementById('checkoutEmail').value.trim();const tx_id=document.getElementById('checkoutTxId').value;
   const msg=document.getElementById('checkoutMsg');const btn=document.getElementById('checkoutBtn');const l=LANG[state.lang]||LANG.es;
   try{btn.disabled=true;btn.textContent='Procesando…';
-    const r=await fetch('https://dihacktor-checkout.loca.lt/capture-email',{method:'POST',headers:{'Content-Type':'application/json','x-request-id':'tx_'+Date.now(),'x-client-fingerprint':'web_'+location.hostname},body:JSON.stringify({email,tx_id})});
+    const r=await fetch('https://dihacktor-checkout-v2.loca.lt/capture-email',{method:'POST',headers:{'Content-Type':'application/json','x-request-id':'tx_'+Date.now(),'x-client-fingerprint':'web_'+location.hostname},body:JSON.stringify({email,tx_id})});
     const d=await r.json();if(r.ok){msg.style.color='var(--green)';msg.textContent=l.msgOk;msg.style.display='block';setTimeout(closeBuy,1500);}
     else{msg.style.color='var(--red)';msg.textContent=d.error||l.msgErr;msg.style.display='block';}
   }catch(err){msg.style.color='var(--red)';msg.textContent=l.msgErr;msg.style.display='block';}
