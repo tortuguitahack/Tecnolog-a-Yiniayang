@@ -325,6 +325,18 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-
     <img src="altokeqr.jpg" alt="Altoke" style="width:60px;height:60px;">
     <div><h4 style="margin:0;font-size:.9rem;">Altoke</h4><p style="margin:0;font-size:.75rem;color:var(--muted);">Escanea para pagar</p></div>
   </div>
+  <div class="pay-method pay-card" style="display:flex;flex-direction:column;gap:.5rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.75rem;">
+    <h4 style="margin:0 0 .5rem 0;font-size:.9rem;color:var(--cyan);">💳 Pago con Tarjeta de Crédito</h4>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;">
+      <input type="text" id="cardNumber" placeholder="Número de tarjeta" style="width:100%;padding:.6rem;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);font-size:.85rem;">
+      <input type="text" id="cardExpiry" placeholder="MM/AA" style="width:100%;padding:.6rem;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);font-size:.85rem;">
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;">
+      <input type="text" id="cardCvv" placeholder="CVV" style="width:100%;padding:.6rem;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);font-size:.85rem;">
+      <input type="text" id="cardName" placeholder="Nombre en la tarjeta" style="width:100%;padding:.6rem;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);font-size:.85rem;">
+    </div>
+    <button type="button" id="cardPayBtn" style="width:100%;padding:.7rem;border:none;border-radius:6px;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#000;font-weight:700;font-size:.9rem;cursor:pointer;margin-top:.5rem;">Pagar con Tarjeta</button>
+  </div>
 </div>
 <p style="font-size:.75rem;color:var(--dim);text-align:center;margin-top:1rem;">📧 techinnovationany@gmail.com</p>
 </div>
