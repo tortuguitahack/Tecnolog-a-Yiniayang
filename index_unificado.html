@@ -312,7 +312,20 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-
 <button type="submit" class="btn btn-primary" style="width:100%;font-size:1rem;padding:1rem;" id="checkoutBtn">Pagar y completar compra</button>
 </form>
 <div id="checkoutMsg" style="margin:.5rem 0;font-size:.85rem;color:var(--green);display:none;"></div>
-<div class="pay-method pay-vitawallet"><h4><i class="fas fa-star"></i> Pago Directo</h4><p id="modalBank">Envía comprobante a techinnovationany@gmail.com</p></div>
+<div class="pay-methods-modal" style="display:flex;flex-direction:column;gap:.75rem;">
+  <div class="pay-method pay-qr" style="display:flex;align-items:center;gap:.75rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.75rem;">
+    <img src="QR_YAPE.png" alt="Yape" style="width:60px;height:60px;">
+    <div><h4 style="margin:0;font-size:.9rem;">Yape</h4><p style="margin:0;font-size:.75rem;color:var(--muted);">Escanea para pagar</p></div>
+  </div>
+  <div class="pay-method pay-qr" style="display:flex;align-items:center;gap:.75rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.75rem;">
+    <img src="QR_MERCANTIL.jpg" alt="Mercantil" style="width:60px;height:60px;">
+    <div><h4 style="margin:0;font-size:.9rem;">Banco Mercantil</h4><p style="margin:0;font-size:.75rem;color:var(--muted);">Cuenta 4069474188</p></div>
+  </div>
+  <div class="pay-method pay-qr" style="display:flex;align-items:center;gap:.75rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.75rem;">
+    <img src="altokeqr.jpg" alt="Altoke" style="width:60px;height:60px;">
+    <div><h4 style="margin:0;font-size:.9rem;">Altoke</h4><p style="margin:0;font-size:.75rem;color:var(--muted);">Escanea para pagar</p></div>
+  </div>
+</div>
 <p style="font-size:.75rem;color:var(--dim);text-align:center;margin-top:1rem;">📧 techinnovationany@gmail.com</p>
 </div>
 </div>
@@ -409,7 +422,7 @@ function applyLocalization(){
 function renderBankInfo(){
   const c=COUNTRIES[state.country];
   document.getElementById('bankInfo').innerHTML=c.flag+' '+c.name+': '+c.bank+' — Cuenta: '+c.acc+(c.ci?' | '+c.ci:'')+'<br>Lead Bank (USA) — Cuenta: 219449048779 | Ruta: 101019644<br>OpenPayd (Europa) — IBAN: MT12CFTE28004000000000005456093';
-  document.getElementById('modalBank').innerHTML='<strong>'+c.bank+'</strong>: '+c.acc+(c.ci?' | '+c.ci:'');
+  document.getElementById('modalBank').innerHTML='Pago directo — usa los QR del modal';
 }
 // ================= PRODUCTOS (100 diarios) =================
 const CATS=['IA Marketing','Copywriting IA','Automatización n8n','SEO con IA','Email Marketing IA','Imágenes IA','Video IA','Chatbots IA','E-commerce IA','Micro-SaaS IA'];
